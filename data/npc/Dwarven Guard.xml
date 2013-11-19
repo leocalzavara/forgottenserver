@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Dwarven Guard" script="default.lua" walkinterval="2000" floorchange="0">
+<health now="100" max="100"/>
+	<look type="70"/>
+<voices>
+<voice text="Selling crystal teleportes!" interval2="100" margin="1" yell="no"/>
+</voices>
+<parameters>
+<parameter key="module_shop" value="1" />
+		<parameter key="shop_buyable" value="Crystal Teleport,18457,150;" />
+		<parameter key="message_walkaway" value="Goodbye |PLAYERNAME|, and may the gods be with you." />
+		<parameter key="message_sendtrade" value="Of course, just browse through my wares." />
+</parameters>
+</npc>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Wiggler" nameDescription="wiggler" race="venom" experience="900" speed="970" manacost="0">
+  <health now="1200" max="1200"/>
+  <look type="510" corpse="18480"/>
+  <targetchange interval="5000" chance="8"/>
+  <strategy attack="90" defense="10"/>
+  <flags>
+    <flag summonable="0"/>
+    <flag attackable="1"/>
+    <flag hostile="1"/>
+    <flag illusionable="0"/>
+    <flag convinceable="0"/>
+    <flag pushable="0"/>
+    <flag canpushitems="1"/>
+    <flag canpushcreatures="1"/>
+    <flag targetdistance="1"/>
+    <flag staticattack="90"/>
+    <flag runonhealth="0"/>
+  </flags>
+  <attacks>
+    <attack name="melee" interval="2000" skill="60" attack="80"/>
+		<attack name="speed" interval="1000" chance="17" range="7" radius="4" target="1" speedchange="-60" duration="1500">
+		</attack>
+		<attack name="ice" interval="2000" chance="21" range="6" radius="2" target="1" min="-130" max="-250">
+			<attribute key="shootEffect" value="smallice"/>
+			<attribute key="areaEffect" value="giantice"/>
+		</attack>
+		<attack name="manadrain" interval="2000" chance="15" range="7" min="-60" max="-120"> 
+			<attribute key="shootEffect" value="earth"/>
+			<attribute key="areaeffect" value="carniphila"/>	
+		</attack>
+  </attacks>
+  <defenses armor="75" defense="75">    
+  </defenses>
+	<elements>		
+		<element energyPercent="+20"/>				
+		<element earthPercent="+20"/>
+		<element deathPercent="-40"/>
+	</elements>
+  <immunities>
+    <immunity holy="1"/>
+    <immunity lifedrain="0"/>
+    <immunity paralyze="0"/>
+    <immunity invisible="0"/>
+  </immunities> 
+	<voices interval="5000" chance="10">
+		<voice sentence="Zeppp!"/>
+		<voice sentence="Crick! Crick!"/>
+	</voices>  
+  <loot>
+ 	 <item id="2148" countmax="100" chance="30000"/><!-- Gold Coins -->
+ 	 <item id="2152" countmax="1" chance="33333"/><!-- Platium Coins -->
+ 	 <item id="18304" countmax="5" chance="300"/><!-- Crystalline Arrow -->
+ 	 <item id="18436" countmax="5" chance="295"/><!-- Drill Bolts -->
+ 	 <item id="2787" countmax="5" chance="295"/><!-- White Mushroom -->
+        <item id="7589" chance="366"/><!-- SMP -->            
+        <item id="7588" chance="244"/><!-- SHP -->
+        <item id="5912" chance="322"/><!-- Blue POC -->
+        <item id="5914" chance="232"/><!-- Yellow POC -->
+        <item id="2409" chance="344"/><!-- Serpent Sword -->
+        <item id="2529" chance="322"/><!-- Black Shield -->
+        <item id="2181" chance="332"/><!-- Terra Rod -->
+        <item id="18416" chance="322"/><!-- Green Crystal Splinter -->
+        <item id="18421" chance="332"/><!-- Green Crystal Fragment -->	
+</loot>
+</monster>

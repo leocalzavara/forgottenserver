@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Weeper" nameDescription="Weeper" race="blood" experience="4800" speed="570" manacost="0">
+  <health now="6800" max="6800"/>
+  <look type="489" corpse="17252"/>
+  <targetchange interval="5000" chance="8"/>
+  <strategy attack="90" defense="10"/>
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="0"/>
+		<flag convinceable="0"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="1"/>
+		<flag targetdistance="0"/>
+		<flag staticattack="50"/>
+		<flag runonhealth="100"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="40" attack="90"/>
+		<attack name="physical" interval="2000" chance="20" range="7" min="-150" max="-395">
+			<attribute key="shootEffect" value="whirlwindaxe"/>
+		</attack>
+		<attack name="physical" interval="2000" chance="100" range="7" min="-220" max="-350">
+			<attribute key="shootEffect" value="whirlwindsword"/>
+		</attack>
+		<attack name="fire" interval="2000" chance="100" range="7" target="1" radius="2" min="-140" max="-260">
+			<attribute key="shootEffect" value="flammingarrow"/>
+			<attribute key="areaEffect" value="firearea"/>			
+		</attack>
+	</attacks>
+  <defenses armor="85" defense="85">
+  </defenses>
+	<elements>
+		<element firePercent="100"/>
+		<element physicalPercent="10"/>
+		<element earthPercent="100"/>
+		<element deathPercent="-20"/>
+		<element energyPercent="-20"/>
+	</elements>
+	<immunities>
+		<immunity outfit="1"/>
+		<immunity drown="1"/>
+		<immunity paralyze="1"/>
+		<immunity invisible="1"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Moooaaan!"/>
+	</voices>  
+  <loot>
+ 	<item id="2148" countmax="199" chance="30000"/><!-- Gold Coins -->
+ 	<item id="2152" countmax="7" chance="33333"/><!-- Platium Coins -->
+ 	<item id="2147" countmax="3" chance="3100"/><!-- Small Ruby -->
+ 	<item id="7590" countmax="2" chance="2195"/><!-- GMP -->
+ 	<item id="8473" countmax="2" chance="2195"/><!-- UHP -->
+ 	<item id="18417" countmax="2" chance="366"/><!-- Brown Crystal Splinter -->
+ 	<item id="18435" countmax="5" chance="366"/><!-- Prismatic Bolts -->
+        <item id="10553" chance="466"/><!-- Fiery Heart -->            
+        <item id="2392" chance="444"/><!-- Fire Sword -->
+        <item id="18409" chance="322"/><!-- Wand of Everblazing -->
+        <item id="2432" chance="332"/><!-- Fire Axe -->
+        <item id="18426" chance="466"/><!-- Eye of a Weeper -->     
+        <item id="18424" chance="466"/><!-- Magma Clump -->            
+        <item id="18414" chance="444"/><!-- Violet Crystal Shard -->
+        <item id="13757" chance="322"/><!-- Coal -->          
+        <item id="18420" chance="444"/><!-- Red Crystal Fragment -->
+        <item id="7899" chance="322"/><!-- Magma Coat -->
+        <item id="7894" chance="332"/><!-- Magma Legs -->
+</loot>
+</monster>

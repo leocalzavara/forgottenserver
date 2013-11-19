@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Tarnished Spirit" nameDescription="a tarnished spirit" race="blood" experience="120" speed="210" manacost="390">
+	<health now="150" max="150"/>
+	<look type="566" corpse="13525"/>
+	<targetchange interval="5000" chance="8"/>
+	<strategy attack="100" defense="0"/>
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="0"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="0"/>
+		<flag targetdistance="0"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" min="-0" max="-100"/>
+		
+		<attack name="lifedrain" interval="1000" chance="20" range="1" min="-20" max="-45">
+			<attribute key="areaEffect" value="redspark"/>
+		</attack>
+		
+	</attacks>
+	<defenses armor="11" defense="11"/>
+	<elements>
+		<element physicalPercent="100"/>
+		<element earthPercent="100"/>
+		<element deathPercent="100"/>
+	</elements>
+	<immunities>
+		<immunity earth="1"/>
+		<immunity physical="1"/>
+		<immunity lifedrain="1"/>
+		<immunity paralyze="1"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Huh!"/>
+		<voice sentence="Shhhhhhh"/>
+		<voice sentence="Buuuuuh!"/>
+	</voices>
+	<loot>
+		<item id="2532" chance="7000"/><!-- ancient shield -->
+		<item id="10607" chance="7000"/><!-- ghostly tissue -->
+		<item id="1977" chance="6500"/><!-- orange book -->
+		<item id="2394" chance="5000"/><!-- morning star -->
+		<item id="2404" chance="7000"/><!-- combat knife -->
+		<item id="2804" chance="5000"/><!-- shadow herb -->
+		<item id="2654" chance="5000"/><!-- cape -->
+		<item id="5909" chance="1800"/><!-- white piece of cloth -->
+	</loot>
+</monster>

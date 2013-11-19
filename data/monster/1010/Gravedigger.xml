@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Gravedigger" nameDescription="a gravedigger" race="blood" experience="950" speed="370" manacost="0">
+  <health now="1500" max="1500"/>
+  <look type="558" corpse="21279"/>
+  <targetchange interval="5000" chance="8"/>
+  <strategy attack="90" defense="10"/>
+  <flags>
+    <flag summonable="0"/>
+    <flag attackable="1"/>
+    <flag hostile="1"/>
+    <flag illusionable="0"/>
+    <flag convinceable="0"/>
+    <flag pushable="0"/>
+    <flag canpushitems="1"/>
+    <flag canpushcreatures="1"/>
+    <flag targetdistance="1"/>
+    <flag staticattack="90"/>
+    <flag runonhealth="0"/>
+  </flags>
+  <attacks>
+    <attack name="melee" interval="2000" min="-40" max="-320" poison="20"/>
+		<attack name="manadrain" interval="2000" chance="15" range="7" min="-100" max="-250">
+			<attribute key="areaEffect" value="blueshimmer"/>
+		</attack>
+	
+		<attack name="death" interval="1000" chance="9" range="2" min="-200" max="-350">
+			<attribute key="shootEffect" value="suddendeath"/>
+		</attack>	
+	
+		<attack name="drunk" interval="1000" chance="15" range="7" radius="1" target="1">
+			<attribute key="areaEffect" value="redshimmer"/>
+		</attack>	
+	
+  </attacks>
+	<defenses armor="70" defense="70">
+	
+		<defense name="speed" interval="2000" chance="6" speedchange="500" duration="10000">
+			<attribute key="areaEffect" value="redshimmer"/>
+		</defense>
+		
+		<defense name="healing" interval="2000" chance="25" min="100" max="195">
+			<attribute key="areaEffect" value="blueshimmer"/>
+		</defense>
+		
+		<defense name="invisible" interval="1000" chance="9" duration="5000">
+			<attribute key="areaEffect" value="blueshimmer"/>
+		</defense>		
+		
+	</defenses>
+	<elements>		
+		<element energyPercent="100"/>				
+		<element icePercent="100"/>
+		<element deathPercent="100"/>
+		<element holyPercent="-5"/>
+		<element firePercent="-5"/>
+		<element poisonPercent="-5"/>
+	</elements>
+  <immunities>
+    <immunity energy="1"/>
+    <immunity ice="1"/>
+    <immunity death="1"/>
+    <immunity lifedrain="0"/>
+    <immunity paralyze="1"/>
+    <immunity invisible="1"/>
+  </immunities> 
+	<voices interval="5000" chance="10">
+		<voice sentence="High Five!"/>
+		<voice sentence="No... don't go further, stranger... danger lies in every step..."/>
+		<voice sentence="scratch"/>
+	</voices>  
+	<loot>
+		<item id="2148" countmax="140" chance="23000"/><!-- Gold Coin -->
+		<item id="2268" countmax="8" chance="3000"/><!-- sudden death rune -->
+		<item id="6301" chance="4000"/><!-- death ring -->
+		<item id="5925" chance="5000"/><!-- hardened bone -->
+		<item id="10609" chance="7000"/><!-- lump of dirt -->
+		<item id="5669" chance="8000"/><!-- mysterious voodoo skull -->
+		<item id="12440" chance="6000"/><!-- pile of grave earth -->
+		<item id="2152" chance="2000"/><!-- platinum coin -->
+		<item id="12449" chance="3000"/><!-- safety pin -->
+		<item id="2436" chance="2300" /><!-- skull staff -->
+		<item id="7589" countmax="2" chance="5000"/><!-- strong mana potion -->
+		<item id="7588" countmax="2" chance="5000"/><!-- strong health potion -->
+		<item id="11233" chance="3000"/><!-- unholy bone -->
+		<item id="2187" chance="2200"/><!-- wand of inferno -->
+		<item id="2154" chance="2400"/><!-- yellow gem -->
+	</loot>
+</monster>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Leaf Golem" nameDescription="a leaf golem" race="blood" experience="45" speed="270" manacost="0">
+  <health now="90" max="90"/>
+  <look type="567" corpse="21358"/>
+  <targetchange interval="5000" chance="8"/>
+  <strategy attack="90" defense="10"/>
+  <flags>
+    <flag summonable="0"/>
+    <flag attackable="1"/>
+    <flag hostile="1"/>
+    <flag illusionable="0"/>
+    <flag convinceable="0"/>
+    <flag pushable="0"/>
+    <flag canpushitems="1"/>
+    <flag canpushcreatures="1"/>
+    <flag targetdistance="1"/>
+    <flag staticattack="90"/>
+    <flag runonhealth="0"/>
+  </flags>
+  <attacks>
+    <attack name="melee" interval="1500" min="-0" max="-40"/>	
+	
+		<attack name="physical" interval="1000" chance="9" range="7" min="-15" max="-25">
+			<attribute key="shootEffect" value="smallstone"/>
+		</attack>	
+	
+		<attack name="speed" interval="4000" chance="25" range="3" target="1" speedchange="-200" duration="10000">
+			<attribute key="areaEffect" value="redshimmer"/>
+		</attack>	
+	
+  </attacks>
+  <defenses armor="20" defense="45">    
+  </defenses>
+	<elements>		
+		<element earthPercent="1"/>				
+		<element firePercent="-1"/>
+		<element icePercent="-1"/>
+	</elements>
+  <immunities>
+  </immunities>   
+	<voices interval="5000" chance="10">
+		<voice sentence="*crackle*"/>
+		<voice sentence="*rustle*"/>
+		<voice sentence="*swwwwishhhh*"/>
+	</voices>  
+	<loot>
+		<item id="2148" countmax="30" chance="23000"/><!-- Gold Coin -->
+		<item id="2787" countmax="3" chance="9000"/><!-- white mushrooms -->
+		<item id="21427" chance="7000"/><!-- dowser -->
+		<item id="21428" chance="4000"/><!-- fir cone -->
+		<item id="20104" chance="2200"/><!-- swampling club -->
+		<item id="2149" chance="2400"/><!-- small emerald -->
+	</loot>
+</monster>

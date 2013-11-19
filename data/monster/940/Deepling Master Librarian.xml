@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Deepling Master Librarian" nameDescription="deepling master librarian" race="blood" experience="1900" speed="670" manacost="0">
+  <health now="1700" max="1700"/>
+  <look type="443" corpse="15211"/>
+  <targetchange interval="5000" chance="8"/>
+  <strategy attack="90" defense="10"/>
+  <flags>
+    <flag summonable="0"/>
+    <flag attackable="1"/>
+    <flag hostile="1"/>
+    <flag illusionable="0"/>
+    <flag convinceable="0"/>
+    <flag pushable="0"/>
+    <flag canpushitems="1"/>
+    <flag canpushcreatures="1"/>
+    <flag targetdistance="1"/>
+    <flag staticattack="90"/>
+    <flag runonhealth="0"/>
+  </flags>
+  <attacks>
+    <attack name="melee" interval="2000" skill="60" attack="80"/>
+		<attack name="speed" interval="1000" chance="17" range="7" radius="4" target="1" speedchange="-600" duration="1500">
+		</attack>
+		<attack name="ice" interval="2000" chance="21" range="6" target="1" min="-80" max="-180">
+			<attribute key="areaEffect" value="ICETORNADO"/>
+		</attack>
+		<attack name="earth" interval="2000" chance="15" range="7" target="1" min="-60" max="-160"> 
+			<attribute key="areaeffect" value="SMALLPLANTS"/>	
+		</attack>
+  </attacks>
+  <defenses armor="75" defense="75">    
+  </defenses>
+	<elements>		
+		<element energyPercent="+20"/>				
+		<element earthPercent="+20"/>
+		<element deathPercent="-40"/>
+	</elements>
+  <immunities>
+    <immunity holy="1"/>
+    <immunity lifedrain="0"/>
+    <immunity paralyze="100"/>
+    <immunity invisible="100"/>
+  </immunities> 
+	<voices interval="5000" chance="10">
+		<voice sentence="Mmmmmoooaaaaaahaaa!!"/>
+		<voice sentence="Jey obu giotja!!"/>
+	</voices>  
+  <loot>
+ 	<item id="2148" countmax="100" chance="30000"/> 
+ 	<item id="2148" countmax="100" chance="33333"/> 
+	<item id="2152" countmax="2" chance="33333"/> 
+ 	<item id="2149" countmax="4" chance="33333"/>
+        <item id="15488" chance="380"/>             
+        <item id="13870" chance="600"/>
+        <item id="2146" chance="500"/>
+        <item id="15421" chance="500"/>
+        <item id="15422" chance="450"/>
+        <item id="2205" chance="500"/>
+        <item id="15400" chance="500"/>
+        <item id="5895" countmax="2" chance="850"/>
+        <item id="15403" chance="320"/>
+        <item id="15644" chance="310"/>       
+  	
+</loot>
+</monster>

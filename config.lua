@@ -20,10 +20,10 @@ gameProtocolPort = 7172
 adminProtocolPort = 7171
 statusProtocolPort = 7171
 maxPlayers = "1000"
-motd = "Welcome to The Forgotten Server!"
+motd = "Bem vindo ao OT Brazuca!"
 onePlayerOnlinePerAccount = "yes"
 allowClones = "no"
-serverName = "Forgotten"
+serverName = "Brazuca"
 adminLogsEnabled = "no"
 statusTimeout = 60000
 replaceKickOnLogin = "yes"
@@ -44,7 +44,7 @@ timeBetweenActions = 200
 timeBetweenExActions = 1000
 
 -- Map
-mapName = "forgotten"
+mapName = "realmap"
 mapAuthor = "Komic"
 
 -- Market
@@ -70,9 +70,9 @@ noDamageToSameLookfeet = "no"
 -- Rates
 -- NOTE: rateExp is not used if you have enabled stages in data/XML/stages.xml
 rateExp = 5
-rateSkill = 3
+rateSkill = 20
 rateLoot = 2
-rateMagic = 3
+rateMagic = 5
 rateSpawn = 1
 
 -- Monsters
@@ -90,5 +90,5 @@ startupDatabaseOptimization = "no"
 -- Status server information
 ownerName = ""
 ownerEmail = ""
-url = "http://otland.net/"
-location = "Sweden"
+url = "http://ot.brazucasoft.com/"
+location = "Brazil"

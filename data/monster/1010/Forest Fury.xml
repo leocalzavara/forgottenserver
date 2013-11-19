@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Forest Fury" nameDescription="a forest fury" race="blood" experience="235" speed="170" manacost="0">
+  <health now="480" max="480"/>
+  <look type="569" corpse="21359"/>
+  <targetchange interval="5000" chance="8"/>
+	<strategy attack="100" defense="0"/>
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="0"/>
+		<flag convinceable="0"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="1"/>
+		<flag targetdistance="3"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="20" attack="40"/>
+		<attack name="physical" interval="1000" chance="25" range="7" min="-30" max="-130">
+			<attribute key="shootEffect" value="spear"/>
+		</attack>
+		
+	</attacks>
+  <defenses armor="85" defense="85">
+  </defenses>
+	<elements>
+		<element firePercent="-10"/>
+		<element holyPercent="1"/>
+		<element deathPercent="1"/>
+	</elements>
+	<immunities>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="To arms, sisters!"/>
+		<voice sentence="Feel the wrath of mother forest!"/>
+		<voice sentence="By the power of Greenkull!"/>
+		<voice sentence="Yiiieeehhh!"/>
+		<voice sentence="I'll strike you infidels down!"/>
+	</voices>
+	<loot>
+		<item id="2148" countmax="55" chance="43750"/><!-- gold coin -->
+		<item id="7363" countmax="5" chance="20000"/><!-- piercing bolt -->
+		<item id="2666" countmax="3" chance="10000"/><!-- meat -->
+		<item id="21311" chance="3000"/><!-- elven hoof -->
+		<item id="21312" chance="3000"/><!-- venison -->
+		<item id="13291" chance="2500"/><!-- crossbow -->
+		<item id="9970" chance="1200"/><!-- small topaz -->
+		<item id="7438" chance="600"/><!-- elvish bow -->
+	</loot>
+</monster>

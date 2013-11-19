@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Commander Stone" script="simple_task.lua" walkinterval="2000" floorchange="2">
+	<health now="150" max="150"/>
+<look type="512" head="85" body="66" legs="66" feet="66" addons="3"/>
+<parameters>
+<parameter key="message_greet" value="Ola |PLAYERNAME|. quer fazer uma {task}? ou {sair} de uma? tambem pode {receber} premios se terminou ela!" />
+</parameters>
+</npc>

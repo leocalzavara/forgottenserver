@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Ironblight" nameDescription="ironblight" race="blood" experience="4400" speed="570" manacost="0">
+  <health now="6600" max="6600"/>
+  <look type="498" corpse="17424"/>
+  <targetchange interval="5000" chance="8"/>
+  <strategy attack="90" defense="10"/>
+  <flags>
+    <flag summonable="0"/>
+    <flag attackable="1"/>
+    <flag hostile="1"/>
+    <flag illusionable="0"/>
+    <flag convinceable="0"/>
+    <flag pushable="0"/>
+    <flag canpushitems="1"/>
+    <flag canpushcreatures="1"/>
+    <flag targetdistance="0"/>
+    <flag staticattack="90"/>
+    <flag runonhealth="0"/>
+  </flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="40" attack="90"/>
+		<attack name="ice" interval="2000" chance="15" radius="2" target="1" min="-140" max="-420">
+			<attribute key="areaEffect" value="bluebubble"/>
+			<attribute key="shootEffect" value="ice"/>
+		</attack>
+		<attack name="physical" interval="1000" chance="10" radius="4" range="4" target="1" min="-200" max="-400">
+			<attribute key="areaEffect" value="redshimmer"/>
+      		</attack>
+	</attacks>
+  <defenses armor="55" defense="55">    
+  </defenses>
+	<elements>		
+		<element deathPercent="+10"/>		
+		<element icePercent="+10"/>		
+		<element firePercent="+10"/>
+	</elements>
+  <immunities>
+    <immunity earth="100"/>
+    <immunity lifedrain="0"/>
+    <immunity paralyze="100"/>
+    <immunity invisible="100"/>
+  </immunities>      
+  <loot>
+ 	 <item id="2148" countmax="198" chance="30000"/>  
+ 	 <item id="2152" countmax="8" chance="33333"/>
+ 	 <item id="2150" countmax="3" chance="2000"/>
+ 	 <item id="2149" countmax="3" chance="894"/>
+        <item id="7590" chance="463"/><!--  GMP -->        
+        <item id="8473" chance="493"/><!--  UHP -->    
+        <item id="10571" chance="716"/><!--  War Crystal -->
+        <item id="11227" chance="343"/><!--  Shiny Stone -->
+        <item id="2156" chance="822"/><!--  Red Gem -->
+        <item id="2158" chance="410"/><!--  Blue Gem -->
+        <item id="9942" chance="400"/><!--  Crystal of Balance -->
+        <item id="9980" chance="649"/><!--  Crystal of Power -->
+        <item id="18412" chance="340"/><!--  Glacial Rod -->
+        <item id="8912" chance="330"/><!--  Springsprout Rod -->
+        <item id="11368" chance="320"/><!--  Jade Hat -->
+        <item id="7885" chance="315"/><!--  Terra Legs -->
+        <item id="5904" chance="435"/><!--  Magic Sulphur -->
+        <item id="8855" chance="210"/><!--  Composite Hornbow  -->
+        <item id="7437" chance="320"/><!--  Sapphire Hammer -->
+        <item id="2438" chance="340"/><!--  Epee -->
+        <item id="2425" chance="230"/><!--  Crystal Mace -->
+</loot>
+</monster>

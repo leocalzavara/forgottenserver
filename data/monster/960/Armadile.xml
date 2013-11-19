@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Armadile" nameDescription="armadile" race="venom" experience="2900" speed="670" manacost="0">
+  <health now="3800" max="3800"/>
+  <look type="487" corpse="18378"/>
+  <targetchange interval="5000" chance="8"/>
+  <strategy attack="90" defense="10"/>
+  <flags>
+    <flag summonable="0"/>
+    <flag attackable="1"/>
+    <flag hostile="1"/>
+    <flag illusionable="0"/>
+    <flag convinceable="0"/>
+    <flag pushable="0"/>
+    <flag canpushitems="1"/>
+    <flag canpushcreatures="1"/>
+    <flag targetdistance="1"/>
+    <flag staticattack="90"/>
+    <flag runonhealth="0"/>
+  </flags>
+  <attacks>
+    <attack name="melee" interval="2000" skill="90" attack="90"/>
+		<attack name="manadrain" interval="2800" chance="100" range="7" min="-340" max="-340">
+		</attack>	
+  </attacks>
+  <defenses armor="55" defense="55">    
+  </defenses>
+	<elements>		
+		<element energyPercent="-10"/>		
+		<element icePercent="-10"/>		
+		<element firePercent="+30"/>
+	</elements>
+  <immunities>
+    <immunity earth="100"/>
+    <immunity lifedrain="0"/>
+    <immunity paralyze="100"/>
+    <immunity invisible="100"/>
+  </immunities>   
+	<voices interval="2500" chance="10">
+		<voice sentence="Creak!"/>
+	</voices>
+  <loot>
+ 	<item id="2148" countmax="100" chance="30000"/> 
+ 	<item id="2148" countmax="96" chance="33333"/> 
+	<item id="2152" countmax="6" chance="33333"/> 
+ 	<item id="2149" countmax="4" chance="33333"/>
+         <item id="7428" chance="880"/><!-- Bonebreaker -->   
+         <item id="18437" countmax="10" chance="880"/><!-- Evenomed Arrow -->     
+         <item id="18436" countmax="5" chance="880"/><!-- Drill Bolts -->        
+        <item id="13757" chance="600"/><!-- Coal -->        
+        <item id="8878" chance="500"/><!-- Crystalline Armor -->        
+        <item id="2528" chance="500"/><!-- Tower Shield -->  
+        <item id="2169" chance="450"/><!-- Time Ring -->  
+        <item id="12403" chance="900"/><!-- Battle Stone -->  
+        <item id="7886" chance="400"/><!-- Terra Boots -->  
+        <item id="7413" chance="300"/><!-- Titan Axe -->  
+        <item id="7588" countmax="2" chance="450"/><!-- SHP -->     
+        <item id="7589" countmax="2" chance="450"/><!-- SMP -->   
+        <item id="7590" countmax="2" chance="450"/><!-- GMP --> 
+        <item id="7591" countmax="2" chance="450"/><!-- GHP --> 
+        <item id="7620" countmax="3" chance="450"/><!-- MP -->   
+  	
+</loot>
+</monster>

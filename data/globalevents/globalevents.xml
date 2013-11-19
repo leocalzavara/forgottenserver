@@ -6,4 +6,5 @@
 	<!--
 	<globalevent name="timer_example" time="12:00:00" script="my_script.lua"/>
 	-->
+	<globalevent name="CheckMount" interval="5000" event="script" value="CheckMount.lua"/>
 </globalevents>

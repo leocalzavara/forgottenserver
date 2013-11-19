@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Yielothax" nameDescription="a Yielothax" race="venom" experience="1250" speed="320" manacost="0">
+  <health now="1500" max="1500"/>
+  <look type="408" corpse="13752"/>
+  <targetchange interval="4000" chance="16"/>
+  <strategy attack="100" defense="0"/>
+  <flags>
+    <flag summonable="0"/>
+    <flag attackable="1"/>
+    <flag hostile="1"/>
+    <flag illusionable="0"/>
+    <flag convinceable="0"/>
+    <flag pushable="0"/>
+    <flag canpushitems="1"/>
+    <flag canpushcreatures="1"/>
+    <flag targetdistance="1"/>
+    <flag staticattack="90"/>
+    <flag runonhealth="0"/>
+  </flags> 
+  <attacks>
+      <attack name="melee" interval="2000" skill="80" attack="90"/>
+      <attack name="lifedrain" interval="1000" chance="11" range="1" min="-60" max="-180">
+      </attack>      
+      <attack name="poisonfield" interval="1000" chance="10" range="3" radius="4" target="1" min="-70" max="-220">
+      <attribute key="shootEffect" value="poison"/>
+      </attack>
+      <attack name="lifedrain" interval="1000" chance="10" range="3" radius="4" target="1" min="-80" max="-130">
+      <attribute key="shootEffect" value="poison"/>
+      </attack>
+      <attack name="manadrain" interval="1000" chance="10" range="3" radius="4" target="1" min="-70" max="-120">
+      <attribute key="areaEffect" value="redshimmer"/>
+      </attack>
+  </attacks>
+     <defenses armor="70" defense="75">
+    <defense name="healing" interval="2000" chance="25" min="500" max="1250">
+      <attribute key="areaEffect" value="blueshimmer"/>
+    </defense>
+	<defense name="speed" interval="1000" chance="8" speedchange="490" duration="10000">
+      <attribute key="areaEffect" value="redshimmer"/>
+    </defense>
+  </defenses>   
+  <immunities>   
+    <immunity invisible="0"/>
+  </immunities>  
+	<elements>		
+		<element energyPercent="-25"/>		
+		<element icePercent="-25"/>		
+		<element firePercent="-25"/>
+                <element deathPercent="-20"/>
+                <element physicalPercent="-35"/>
+	</elements>   
+  <voices interval="5000" chance="10">    
+    <voice sentence="IIEEH!! Iiih iih ih iiih!!!"/> 
+    <voice sentence="Bsssssssm Bssssssm Bsssssssssssm!"/>    
+   </voices>  
+    <loot>
+    <item id="2148" countmax="100" chance="30000"/> 
+    <item id="8301" countmax="4" chance="30000"/> 
+    <item id="2148" countmax="100" chance="33333"/> 
+    <item id="2148" countmax="30" chance="33333"/> 	
+    <item id="2151" chance="2100"/>   
+    <item id="2189" chance="2000"/> 
+    <item id="7440" chance="2500"/> 
+    <item id="7588" chance="5332"/> 
+    <item id="7589" chance="5332"/> 
+    <item id="8300" chance="25332"/>
+    <item id="8300" chance="25332"/>
+    <item id="8302" chance="15332"/>
+    <item id="8302" chance="15332"/>
+    <item id="7889" chance="2000"/>  
+    <item id="10221" chance="777"/>  
+    <item id="13877" chance="888"/>
+    <item id="13881" chance="909"/>
+    <item id="13942" chance="800"/> 
+    <item id="2438" chance="5000"/>     
+    <item id="7895" chance="11000"/>  	
+    </loot>
+</monster>

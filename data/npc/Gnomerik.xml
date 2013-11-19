@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Gnomerik" script="default.lua" walkinterval="2000" floorchange="0">
+	<health now="150" max="150"/>
+<look type="493" head="4" body="6" legs="5" feet="6" addons="0"/>
+</npc>

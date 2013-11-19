@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Magma Crawler" nameDescription="magma crawler" race="blood" experience="2700" speed="570" manacost="0">
+  <health now="4800" max="4800"/>
+  <look type="492" corpse="17337"/>
+  <targetchange interval="5000" chance="8"/>
+  <strategy attack="90" defense="10"/>
+  <flags>
+    <flag summonable="0"/>
+    <flag attackable="1"/>
+    <flag hostile="1"/>
+    <flag illusionable="0"/>
+    <flag convinceable="0"/>
+    <flag pushable="0"/>
+    <flag canpushitems="1"/>
+    <flag canpushcreatures="1"/>
+    <flag targetdistance="1"/>
+    <flag staticattack="90"/>
+    <flag runonhealth="0"/>
+  </flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="120" attack="80"/>
+		<attack name="fire" interval="2000" chance="40" range="5" length="8" spread="3" min="-200" max="-515">
+			<attribute key="areaEffect" value="firearea"/>
+		</attack>
+		<attack name="melee" interval="1000" chance="25" range="7" radius="3" target="0" min="-150" max="-250">
+			<attribute key="areaEffect" value="explosionarea"/>
+		</attack>
+	</attacks>
+  <defenses armor="55" defense="55">    
+  </defenses>
+	<elements>		
+		<element energyPercent="-10"/>		
+		<element icePercent="-10"/>		
+		<element physicalPercent="-10"/>
+		<element deathPercent="-10"/>
+	</elements>
+  <immunities>
+    <immunity fire="100"/>
+    <immunity lifedrain="100"/>
+    <immunity paralyze="100"/>
+    <immunity invisible="100"/>
+  </immunities>   
+	<voices interval="5000" chance="10">
+		<voice sentence="Crrroak!"/>
+		<voice sentence="Rrroarrr"/>
+	</voices>     
+  <loot>
+ 	 <item id="2148" countmax="191" chance="30000"/><!-- Gold Coin -->            
+ 	 <item id="2152" countmax="5" chance="33333"/><!-- Platium Coin -->            
+ 	 <item id="2145" countmax="3" chance="667"/><!-- Small Diamond -->            
+ 	 <item id="18304" countmax="9" chance="406"/><!-- Crystalline Arrow -->            
+        <item id="8921" chance="367"/><!-- Wand of Draconia -->            
+        <item id="10553" chance="366"/><!-- Fiery Heart -->            
+        <item id="7591" chance="240"/><!-- GHP -->            
+        <item id="7590" chance="340"/><!-- GMP -->            
+        <item id="5914" chance="303"/><!-- Yellow POC -->   
+        <item id="5909" chance="482"/><!-- White POC -->
+        <item id="5911" chance="442"/><!-- Red POC -->               
+        <item id="2167" chance="542"/><!-- Energy Ring -->            
+        <item id="5880" chance="442"/><!-- Iron Ore -->                    
+        <item id="2392" chance="282"/><!-- Fire Sword -->            
+        <item id="7890" chance="382"/><!-- Magma Amulet -->  
+        <item id="7891" chance="442"/><!-- Magma Boots -->                                             
+        <item id="2154" chance="882"/><!-- Yellow Gem -->            
+        <item id="18409" chance="382"/><!-- Wand of Everblazing -->          
+</loot>
+</monster>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Rorc" nameDescription="a rorc" race="blood" experience="105" speed="210" manacost="540">
+	<health now="260" max="260"/>
+	<look type="550" corpse="15354"/>
+	<targetchange interval="5000" chance="8"/>
+	<strategy attack="100" defense="0"/>
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="1"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="0"/>
+		<flag targetdistance="4"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" min="-0" max="-100"/>
+	</attacks>
+	<defenses armor="11" defense="11">
+	
+		<defense name="healing" interval="2000" chance="25" min="10" max="30">
+			<attribute key="areaEffect" value="blueshimmer"/>
+		</defense>
+	
+		<defense name="speed" interval="2000" chance="6" speedchange="300" duration="5000">
+			<attribute key="areaEffect" value="redshimmer"/>
+		</defense>	
+		
+	</defenses>
+	<elements>
+		<element holyPercent="1"/>
+		<element energyPercent="1"/>
+		<element deathPercent="-1"/>
+		<element earthPercent="-1"/>
+	</elements>
+	<voices interval="5000" chance="10">
+		<voice sentence="Kroaaah!!"/>
+		<voice sentence="Butak crooooarck bana zamar!"/>
+		<voice sentence="Krrrooow truaaak kiiiii!"/>
+	</voices>	
+	<loot>
+		<item id="2148" countmax="35" chance="23000"/><!-- Gold Coin -->
+		<item id="21314" chance="7000"/><!-- hatched rorc egg -->
+		<item id="21313" chance="4000"/><!-- rorc egg -->
+		<item id="21310" chance="4200"/><!-- rorc feather -->
+		<item id="2425" chance="1000"/><!-- obsidian lance -->
+		<item id="2129" chance="8500"/><!-- wolf tooth chain -->
+		<item id="2428" chance="5000"/><!-- orcish axe -->
+		<item id="2510" chance="9000"/><!-- plate shield -->
+	</loot>
+</monster>

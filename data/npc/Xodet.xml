@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Xodet" script="Xodet.lua" walkinterval="2000" floorchange="0">
+<health now="100" max="100"/>
+<look type="130" head="19" body="86" legs="87" feet="95" addons="0"/>
+	<parameters>
+		<parameter key="shop_buyable" value="Underworld Rod,8910,7000;Wand Of Cosmic Energy,2189,4000;Wand of Decay,2188,2000;Wand of Draconia,8921,3000;Wand of Dragonbreath,2191,1000;Wand of Inferno,2187,5000;Wand of Starstorm,8920,6000;Wand of Voodoo,8922,7000;Wand of Vortex,2190,500;"/>
+	</parameters>
+</npc>

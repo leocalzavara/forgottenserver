@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Vulcongra" nameDescription="vulcongra" race="blood" experience="1100" speed="390" manacost="0">
+  <health now="1600" max="1600"/>
+  <look type="509" corpse="18476"/>
+  <targetchange interval="5000" chance="8"/>
+  <strategy attack="90" defense="10"/>
+  <flags>
+    <flag summonable="0"/>
+    <flag attackable="1"/>
+    <flag hostile="1"/>
+    <flag illusionable="0"/>
+    <flag convinceable="0"/>
+    <flag pushable="0"/>
+    <flag canpushitems="1"/>
+    <flag canpushcreatures="1"/>
+    <flag targetdistance="1"/>
+    <flag staticattack="90"/>
+    <flag runonhealth="0"/>
+  </flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="90" attack="110"/>
+		<attack name="fire" interval="2000" chance="17" range="7" radius="4" target="1" min="-60" max="-250">
+			<attribute key="shootEffect" value="fire"/>
+			<attribute key="areaEffect" value="firearea"/>
+		</attack>
+		<attack name="firefield" interval="2000" chance="15" range="7" radius="4" target="1">
+			<attribute key="shootEffect" value="fire"/>
+		</attack>
+		<attack name="fire" interval="2000" chance="17" length="8" spread="3" min="-70" max="-350">
+			<attribute key="areaEffect" value="firearea"/>
+		</attack>
+	</attacks>
+  <defenses armor="55" defense="55">    
+  </defenses>
+	<elements>		
+		<element deathPercent="-10"/>				
+		<element icePercent="+10"/>
+	</elements>
+  <immunities>
+    <immunity fire="100"/>
+    <immunity earth="100"/>
+    <immunity lifedrain="0"/>
+    <immunity paralyze="100"/>
+    <immunity invisible="100"/>
+  </immunities> 
+	<voices interval="5000" chance="10">
+		<voice sentence="Fuchah! Fuchah!"/>
+		<voice sentence="Fuchah!"/>
+		<voice sentence="Yag! Yag! Yag!"/>
+	</voices>   
+  <loot>
+ 	<item id="2148" countmax="100" chance="30000"/><!-- Gold Coins -->
+	<item id="2152" countmax="10" chance="13333"/><!-- Platium Coins --> 
+ 	<item id="2676" countmax="15" chance="13333"/><!-- Bananas -->
+        <item id="2187" chance="380"/><!-- Wand of Inferno -->             
+        <item id="2207" chance="360"/><!-- Sword Ring -->
+        <item id="2392" chance="330"/><!-- Fire Sword -->
+        <item id="7899" chance="300"/><!-- Magma Coat -->
+        <item id="7890" chance="450"/><!-- Magma Amulet --> 
+        <item id="18424" chance="380"/><!-- Magma Clump -->             
+        <item id="10553" chance="360"/><!-- Fiery Heart -->
+        <item id="18425" chance="330"/><!-- Blazing Bone -->
+        <item id="18417" chance="300"/><!-- Brown Crystal Splinter -->
+        <item id="18420" chance="450"/><!-- Red Crystal Fragment -->              
+        <item id="13757" chance="360"/><!-- Coal -->
+        <item id="7589" chance="330"/><!-- SMP -->
+        <item id="7588" chance="300"/><!-- SHP -->  
+  	
+</loot>
+</monster>

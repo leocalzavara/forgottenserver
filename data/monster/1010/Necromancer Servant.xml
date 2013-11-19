@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Necromancer Servant" nameDescription="a necromancer servant" race="blood" experience="580" speed="210" manacost="390">
+	<health now="580" max="580"/>
+	<look type="9" corpse="20455"/>
+	<targetchange interval="5000" chance="8"/>
+	<strategy attack="100" defense="0"/>
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="0"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="0"/>
+		<flag targetdistance="4"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" min="-0" max="-80" poison="20"/>
+
+		<attack name="death" interval="1000" chance="9" range="7" min="-10" max="-120">
+			<attribute key="shootEffect" value="suddendeath"/>
+		</attack>			
+		
+		<attack name="stone shower" interval="1000" chance="14" min="-20" max="-120"/> 		
+		
+	</attacks>
+	<defenses armor="20" defense="20">
+		<defense name="healing" interval="1000" chance="25" min="40" max="98">
+			<attribute key="areaEffect" value="blueshimmer"/>
+		</defense>
+	</defenses>
+	<elements>
+		<element deathPercent="50"/>
+		<element energyPercent="20"/>
+		<element physicalPercent="-5"/>
+		<element holyPercent="-5"/>
+		<element firePercent="-5"/>
+	</elements>
+	<immunities>
+		<immunity invisible="1"/>
+		<immunity earth="1"/>
+	</immunities>	
+	<summons maxSummons="2">
+		<summon name="Ghoul" interval="1000" chance="17" max="1"/>
+		<summon name="Ghost" interval="1000" chance="15" max="1"/>
+		<summon name="Mummy" interval="1000" chance="13" max="1"/>
+	</summons>	
+	<loot>
+		<item id="2148" countmax="70" chance="8250"/><!-- gold coin -->
+		<item id="2545" countmax="5" chance="4000"/><!-- poison arrow -->
+		<item id="11237" chance="5000"/><!-- book of necromantic rituals -->
+		<item id="21250" chance="6000"/><!-- incantation fragment -->
+		<item id="12431" chance="4000"/><!-- necromantic robe -->
+	</loot>	
+</monster>

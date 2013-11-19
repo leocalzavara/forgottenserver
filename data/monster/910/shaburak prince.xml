@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Shaburak Prince" nameDescription="a shaburak prince" race="fire" experience="7700" speed="375" manacost="0">
+  <health now="12600" max="12600"/>
+  <look type="418" corpse="5995"/>
+  <targetchange interval="5000" chance="8"/>
+  <strategy attack="90" defense="10"/>
+  <flags>
+    <flag summonable="0"/>
+    <flag attackable="1"/>
+    <flag hostile="1"/>
+    <flag illusionable="0"/>
+    <flag convinceable="0"/>
+    <flag pushable="0"/>
+    <flag canpushitems="1"/>
+    <flag canpushcreatures="1"/>
+    <flag targetdistance="1"/>
+    <flag staticattack="90"/>
+    <flag runonhealth="0"/>
+  </flags>
+  <attacks>
+    <attack name="melee" interval="2000" skill="70" attack="130"/>
+    <attack name="manadrain" interval="2000" chance="13" range="7" min="0" max="-220"/>
+    <attack name="fire" interval="2000" chance="30" range="7" radius="7" target="1" min="-160" max="-405">
+		<attribute key="shootEffect" value="fire"/>
+		<attribute key="areaEffect" value="firearea"/>
+	</attack>
+    <attack name="firefield" interval="2000" chance="12" range="7" radius="1" target="1">
+		<attribute key="shootEffect" value="fire"/>
+	</attack>
+    <attack name="lifedrain" interval="1000" chance="12" length="8" spread="0" min="-250" max="-420">
+		<attribute key="areaEffect" value="fire"/>
+	</attack>
+	<attack name="speed" interval="2000" chance="15" target="1" speedchange="-750" duration="30000">
+		<attribute key="areaEffect" value="redshimmer"/>
+	</attack>	
+  </attacks>
+  <defenses armor="65" defense="65">
+    <defense name="healing" interval="2000" chance="15" min="330" max="540">
+      <attribute key="areaEffect" value="blueshimmer"/>
+    </defense>
+	<defense name="speed" interval="1000" chance="8" speedchange="420" duration="5000">
+      <attribute key="areaEffect" value="redshimmer"/>
+    </defense>
+  </defenses>
+	<elements>
+		<element physicalPercent="25"/>
+		<element energyPercent="80"/>
+		<element earthPercent="80"/>
+		<element icePercent="-15"/>
+		<element holyPercent="-15"/>
+		<element deathPercent="20"/>
+	</elements>
+  <immunities>
+    <immunity fire="1"/>
+    <immunity lifedrain="1"/>
+    <immunity paralyze="1"/>
+    <immunity invisible="1"/>
+  </immunities>  
+  <voices interval="5000" chance="10">
+    <voice sentence="GREEN IS MEAN!" yell="1"/>
+    <voice sentence="WE RULE!" yell="1"/>
+    <voice sentence="POWER TO THE SHABURAK!" yell="1"/>
+    <voice sentence="DEATH TO THE ASKARAK" yell="1"/>
+  </voices>
+  <loot>
+ 	<item id="2148" countmax="100" chance1="30000" chancemax="0"/> <!-- gold coins -->
+ 	<item id="2148" countmax="100" chance1="33333" chancemax="0"/> <!-- gold coins -->
+	<item id="2152" countmax="3" chance1="33333" chancemax="2000"/> <!--Plat -->
+        <item id="2149" countmax="5" chance1="33333" chancemax="2000"/> <!--Plat -->
+        <item id="2165" chance="11000"/>
+ 	<item id="7588" chance="19000"/>
+        <item id="7589" chance="21000"/>
+        <item id="7443" chance="19000"/>
+        <item id="2645" chance="1000"/>
+        <item id="2187" chance="2500"/>
+        <item id="7412" chance="909"/>
+</loot>
+</monster>

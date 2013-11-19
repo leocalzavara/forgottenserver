@@ -1,45 +1,177 @@
+--------------------------------------------------------------------------------------------
+	------------------------------   NPC by Shynzo ---------------------------------------
+--------------------------------------------------------------------------------------------
 local keywordHandler = KeywordHandler:new()
 local npcHandler = NpcHandler:new(keywordHandler)
 NpcSystem.parseParameters(npcHandler)
+local talkState = {}
 
-function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
-function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
-function onCreatureSay(cid, type, msg)	npcHandler:onCreatureSay(cid, type, msg)	end
-function onThink()						npcHandler:onThink()						end
+function onCreatureAppear(cid)				npcHandler:onCreatureAppear(cid)			end
+function onCreatureDisappear(cid)			npcHandler:onCreatureDisappear(cid)			end
+function onCreatureSay(cid, type, msg)			npcHandler:onCreatureSay(cid, type, msg)		end
+function onThink()					npcHandler:onThink()					end
 
-function buyAddons(cid, message, keywords, parameters, node)
-	--TODO: buyAddons function in modules.lua
+function creatureSayCallback(cid, type, msg)
 	if(not npcHandler:isFocused(cid)) then
 		return false
 	end
 
-	local addon = parameters.addon
-	local cost = parameters.cost
-	local premium = (parameters.premium ~= nil and parameters.premium)
+	local talkUser = NPCHANDLER_CONVBEHAVIOR == CONVERSATION_DEFAULT and 0 or cid
 
-	if isPlayerPremiumCallback == nil or (isPlayerPremiumCallback(cid) and premium) then
-		if doPlayerRemoveMoney(cid, cost) == TRUE then
-			doPlayerAddAddons(cid, addon)
-			npcHandler:say('There, you are now able to use all addons!', cid)
-		else
-			npcHandler:say('Sorry, you do not have enough money.', cid)
-		end
-	else
-		npcHandler:say('I only serve customers with premium accounts.', cid)
+	if(msgcontains(msg, 'first') or msgcontains(msg, 'first addon')) then
+        if isPremium(cid) then
+         
+                if getPlayerItemCount(cid, 2160) >= 1 then
+                    selfSay('Did you buy first addons for 10k?', cid)
+		talkState[talkUser] = 1
+                else
+                    selfSay('Come back when you have 10k.', cid)
+                end
+
+        else
+            selfSay('Sorry, you need a premium account to get addons.', cid)
+        end
+	elseif(msgcontains(msg, 'yes') and talkState[talkUser] == 1) then
+        if getPlayerItemCount(cid, 2160) >= 1 or getPlayerItemCount(cid, 2152) >= 100 or getPlayerItemCount(cid, 2148) >= 10000 then
+            if doPlayerTakeItem(cid, 2160, 1) or doPlayerTakeItem(cid, 2152, 100) or doPlayerTakeItem(cid, 2148, 10000) == 0 then
+                selfSay('Thank you. Here you are oaddon.', cid)
+				doPlayerAddOutfit(cid, 136, 1)
+				doPlayerAddOutfit(cid, 128, 1)
+				doPlayerAddOutfit(cid, 137, 1)
+				doPlayerAddOutfit(cid, 129, 1)
+				doPlayerAddOutfit(cid, 138, 1)
+				doPlayerAddOutfit(cid, 130, 1)
+				doPlayerAddOutfit(cid, 139, 1)
+				doPlayerAddOutfit(cid, 131, 1)
+				doPlayerAddOutfit(cid, 140, 1)
+				doPlayerAddOutfit(cid, 132, 1)
+				doPlayerAddOutfit(cid, 141, 1)
+				doPlayerAddOutfit(cid, 133, 1)
+				doPlayerAddOutfit(cid, 142, 1)
+				doPlayerAddOutfit(cid, 134, 1)
+				doPlayerAddOutfit(cid, 147, 1)
+				doPlayerAddOutfit(cid, 143, 1)
+				doPlayerAddOutfit(cid, 148, 1)
+				doPlayerAddOutfit(cid, 144, 1)
+				doPlayerAddOutfit(cid, 149, 1)
+				doPlayerAddOutfit(cid, 145, 1)
+				doPlayerAddOutfit(cid, 150, 1)
+				doPlayerAddOutfit(cid, 146, 1)
+				doPlayerAddOutfit(cid, 155, 1)
+				doPlayerAddOutfit(cid, 151, 1)
+				doPlayerAddOutfit(cid, 156, 1)
+				doPlayerAddOutfit(cid, 152, 1)
+				doPlayerAddOutfit(cid, 157, 1)
+				doPlayerAddOutfit(cid, 153, 1)
+				doPlayerAddOutfit(cid, 158, 1)
+				doPlayerAddOutfit(cid, 154, 1)
+				doPlayerAddOutfit(cid, 252, 1)
+				doPlayerAddOutfit(cid, 251, 1)
+				doPlayerAddOutfit(cid, 269, 1)
+				doPlayerAddOutfit(cid, 268, 1)
+				doPlayerAddOutfit(cid, 270, 1)
+				doPlayerAddOutfit(cid, 273, 1)
+				doPlayerAddOutfit(cid, 279, 1)
+				doPlayerAddOutfit(cid, 278, 1)
+				doPlayerAddOutfit(cid, 288, 1)
+				doPlayerAddOutfit(cid, 289, 1)
+				doPlayerAddOutfit(cid, 324, 1)
+				doPlayerAddOutfit(cid, 325, 1)
+				doPlayerAddOutfit(cid, 336, 1)
+				doPlayerAddOutfit(cid, 335, 1)
+				doPlayerAddOutfit(cid, 366, 1)
+				doPlayerAddOutfit(cid, 367, 1)
+				doPlayerAddOutfit(cid, 431, 1)
+				doPlayerAddOutfit(cid, 430, 1)
+				doPlayerAddOutfit(cid, 433, 1)
+				doPlayerAddOutfit(cid, 432, 1)
+
+            end
+        else
+            selfSay(addonItem, cid)
+        end
+        talkState[talkUser] = 0
+    elseif (msgcontains(msg, 'second') or msgcontains(msg, 'second addon')) then
+        if isPremium(cid) then
+                if getPlayerItemCount(cid,2160) >= 2 or getPlayerItemCount(cid,2152) >= 200 or getPlayerItemCount(cid,2148) >= 20000 then
+                    selfSay('Did you bring me the 20k?', cid)
+                    talkState[talkUser] = 4
+                else
+                    selfSay('Come back when you have the 20k.', cid)
+                end
+
+        else
+            selfSay('Sorry, you need a premium account to get addons.', cid)
+        end
+	elseif(msgcontains(msg, 'yes') and talkState[talkUser] == 4) then
+	if getPlayerItemCount(cid,2160) >= 2 or getPlayerItemCount(cid,2152) >= 200 or getPlayerItemCount(cid,2148) >= 20000 then
+            if doPlayerTakeItem(cid,2160,1) or doPlayerTakeItem(cid,2152,100) or doPlayerTakeItem(cid,2148,10000) == 0 then
+                selfSay('Thank you. Here you are oaddon.', cid)
+				doPlayerAddOutfit(cid, 136, 2)
+				doPlayerAddOutfit(cid, 128, 2)
+				doPlayerAddOutfit(cid, 137, 2)
+				doPlayerAddOutfit(cid, 129, 2)
+				doPlayerAddOutfit(cid, 138, 2)
+				doPlayerAddOutfit(cid, 130, 2)
+				doPlayerAddOutfit(cid, 139, 2)
+				doPlayerAddOutfit(cid, 131, 2)
+				doPlayerAddOutfit(cid, 140, 2)
+				doPlayerAddOutfit(cid, 132, 2)
+				doPlayerAddOutfit(cid, 141, 2)
+				doPlayerAddOutfit(cid, 133, 2)
+				doPlayerAddOutfit(cid, 142, 2)
+				doPlayerAddOutfit(cid, 134, 2)
+				doPlayerAddOutfit(cid, 147, 2)
+				doPlayerAddOutfit(cid, 143, 2)
+				doPlayerAddOutfit(cid, 148, 2)
+				doPlayerAddOutfit(cid, 144, 2)
+				doPlayerAddOutfit(cid, 149, 2)
+				doPlayerAddOutfit(cid, 145, 2)
+				doPlayerAddOutfit(cid, 150, 2)
+				doPlayerAddOutfit(cid, 146, 2)
+				doPlayerAddOutfit(cid, 155, 2)
+				doPlayerAddOutfit(cid, 151, 2)
+				doPlayerAddOutfit(cid, 156, 2)
+				doPlayerAddOutfit(cid, 152, 2)
+				doPlayerAddOutfit(cid, 157, 2)
+				doPlayerAddOutfit(cid, 153, 2)
+				doPlayerAddOutfit(cid, 158, 2)
+				doPlayerAddOutfit(cid, 154, 2)
+				doPlayerAddOutfit(cid, 252, 2)
+				doPlayerAddOutfit(cid, 251, 2)
+				doPlayerAddOutfit(cid, 269, 2)
+				doPlayerAddOutfit(cid, 268, 2)
+				doPlayerAddOutfit(cid, 270, 2)
+				doPlayerAddOutfit(cid, 273, 2)
+				doPlayerAddOutfit(cid, 279, 2)
+				doPlayerAddOutfit(cid, 278, 2)
+				doPlayerAddOutfit(cid, 288, 2)
+				doPlayerAddOutfit(cid, 289, 2)
+				doPlayerAddOutfit(cid, 324, 2)
+				doPlayerAddOutfit(cid, 325, 2)
+				doPlayerAddOutfit(cid, 336, 2)
+				doPlayerAddOutfit(cid, 335, 2)
+				doPlayerAddOutfit(cid, 366, 2)
+				doPlayerAddOutfit(cid, 367, 2)
+				doPlayerAddOutfit(cid, 431, 2)
+				doPlayerAddOutfit(cid, 430, 2)
+				doPlayerAddOutfit(cid, 433, 2)
+				doPlayerAddOutfit(cid, 432, 2)
+            end
+        else
+            selfSay(addonItem, cid)
+        end
+
+		talkState[talkUser] = 0
+	elseif(msgcontains(msg, 'no') and isInArray({1}, talkState[talkUser])) then
+		talkState[talkUser] = 0
+		selfSay('Ok then.', cid)
 	end
 
-	keywordHandler:moveUp(1)
 	return true
 end
 
-local node1 = keywordHandler:addKeyword({'first addon'}, StdModule.say, {npcHandler = npcHandler, onlyFocus = true, text = 'Do you want to buy the first addons set for 5000 gold coins?'})
-	node1:addChildKeyword({'yes'}, buyAddons, {addon = 1, cost = 5000, premium = true})
-	node1:addChildKeyword({'no'}, StdModule.say, {npcHandler = npcHandler, onlyFocus = true, moveup = 1, text = 'Too expensive, eh?'})
-
-local node2 = keywordHandler:addKeyword({'second addon'}, StdModule.say, {npcHandler = npcHandler, onlyFocus = true, text = 'Would you like to buy the second addons set for 10000 gold coins?'})
-	node2:addChildKeyword({'yes'}, buyAddons, {addon = 2, cost = 10000, premium = true})
-	node2:addChildKeyword({'no'}, StdModule.say, {npcHandler = npcHandler, onlyFocus = true, moveup = 1, text = 'Too expensive, eh?'})
-
-keywordHandler:addKeyword({'addon'}, StdModule.say, {npcHandler = npcHandler, onlyFocus = true, text = 'I sell the first addons set for 5000 gold coins and the second addons set for 10000 gold coins.'})
-
+npcHandler:setCallback(CALLBACK_MESSAGE_DEFAULT, creatureSayCallback)
 npcHandler:addModule(FocusModule:new())
+
+

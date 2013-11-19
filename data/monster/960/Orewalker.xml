@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Orewalker" nameDescription="orewalker" race="blood" experience="4800" speed="570" manacost="0">
+  <health now="7200" max="7200"/>
+  <look type="490" corpse="17256"/>
+  <targetchange interval="5000" chance="8"/>
+  <strategy attack="90" defense="10"/>
+  <flags>
+    <flag summonable="0"/>
+    <flag attackable="1"/>
+    <flag hostile="1"/>
+    <flag illusionable="0"/>
+    <flag convinceable="0"/>
+    <flag pushable="0"/>
+    <flag canpushitems="1"/>
+    <flag canpushcreatures="1"/>
+    <flag targetdistance="1"/>
+    <flag staticattack="90"/>
+    <flag runonhealth="0"/>
+  </flags>
+  <attacks>
+    	<attack name="melee" interval="2000" skill="50" attack="80"/>
+    		<attack name="physical" interval="1000" chance="40" radius="2" target="0" min="-300" max="-675">
+			<attribute key="shootEffect" value="smallearth"/>
+		</attack>
+		<attack name="death" interval="1000" chance="10" length="7" spread="0" min="-250" max="-660">
+			<attribute key="areaEffect" value="mortarea"/>
+      		</attack>
+		<attack name="physical" interval="1000" chance="10" length="7" radius="2" spread="0" min="-250" max="-460">
+			<attribute key="areaEffect" value="explosion"/>
+      		</attack>
+  </attacks>
+  <defenses armor="55" defense="55">    
+  </defenses>
+	<elements>		
+		<element energyPercent="+10"/>	
+		<element firePercent="-10"/>	
+		<element deathPercent="-10"/>	
+		<element physicalPercent="-10"/>
+		<element icePercent="-10"/>		
+	</elements>
+  <immunities>
+    <immunity earth="100"/>
+    <immunity lifedrain="0"/>
+    <immunity paralyze="100"/>
+    <immunity invisible="100"/>
+  </immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Sizzle!"/>
+		<voice sentence="CLONK!"/>
+	</voices>     
+  <loot>
+ 	 <item id="2148" countmax="182" chance="30000"/><!-- Gold Coin -->
+ 	 <item id="2152" countmax="10" chance="33333"/><!-- Gold Coin -->
+ 	 <item id="18435" countmax="5" chance="430"/><!-- Prismatic Bolt -->
+ 	 <item id="7590" countmax="2" chance="2063"/><!-- GMP -->
+ 	 <item id="7588" countmax="2" chance="379"/><!-- SHP -->
+ 	 <item id="9970" countmax="3" chance="293"/><!-- Small Topazes -->
+ 	 <item id="7589" countmax="2" chance="293"/><!-- SMP -->
+ 	 <item id="7620" countmax="4" chance="362"/><!-- MP -->
+ 	 <item id="8473" countmax="2" chance="362"/><!-- UHP -->
+        <item id="5880" chance="207"/><!-- Iron Ore -->             
+        <item id="11227" chance="221"/><!-- Shiny Stone -->
+        <item id="2213" chance="303"/><!-- Dwarven Ring -->
+        <item id="2487" chance="445"/><!-- Crown Armor -->
+        <item id="18453" chance="359"/><!-- Crystal Crossbow -->
+        <item id="7454" chance="259"/><!-- Glorious Axe -->
+        <item id="2154" chance="359"/><!-- Yellow Gem -->
+        <item id="5904" chance="472"/><!-- Magic Sulphur -->
+        <item id="7413" chance="350"/><!-- Titan Axe -->
+        <item id="2477" chance="340"/><!-- Knight Legs -->
+        <item id="18390" chance="230"/><!-- Wand of Defiance -->
+        <item id="8878" chance="340"/><!-- Crystalline Armor -->
+        <item id="2491" chance="230"/><!-- Crown Helmet -->
+        <item id="11232" chance="230"/><!-- Sulphurous Stone -->
+</loot>
+</monster>

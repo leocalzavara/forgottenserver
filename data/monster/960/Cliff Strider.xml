@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Cliff Strider" nameDescription="cliff strider" race="blood" experience="5700" speed="270" manacost="0">
+  <health now="9400" max="9400"/>
+  <look type="497" corpse="17421"/>
+  <targetchange interval="5000" chance="8"/>
+  <strategy attack="90" defense="10"/>
+  <flags>
+    <flag summonable="0"/>
+    <flag attackable="1"/>
+    <flag hostile="1"/>
+    <flag illusionable="0"/>
+    <flag convinceable="0"/>
+    <flag pushable="0"/>
+    <flag canpushitems="1"/>
+    <flag canpushcreatures="1"/>
+    <flag targetdistance="1"/>
+    <flag staticattack="90"/>
+    <flag runonhealth="0"/>
+  </flags>
+  <attacks>
+    <attack name="melee" interval="2000" skill="90" attack="120"/>
+		<attack name="earth" interval="1800" chance="10" length="7" spread="0" min="-300" max="-685">
+			<attribute key="areaEffect" value="stones"/>
+		</attack>
+		<attack name="energy" interval="750" chance="10" radius="4" range="4" target="1" min="-200" max="-350">
+			<attribute key="areaEffect" value="yellowenergy"/>			
+      		</attack>
+		<attack name="poison" interval="700" chance="12" radius="3" target="1" min="-40" max="-130">
+			<attribute key="areaEffect" value="poison"/>
+		</attack>
+		<attack name="earth" interval="1500" chance="9" radius="3" range="4" target="1" min="-250" max="-590">
+			<attribute key="areaEffect" value="bigplants"/>
+		</attack>	
+  </attacks>
+  <defenses armor="55" defense="55">    
+  </defenses>
+	<elements>			
+		<element icePercent="-10"/>		
+		<element firePercent="-10"/>
+	</elements>
+  <immunities>
+    <immunity earth="100"/>
+    <immunity energy="100"/>
+    <immunity lifedrain="0"/>
+    <immunity paralyze="100"/>
+    <immunity invisible="100"/>
+  </immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Knorrrr!"/>
+	</voices>     
+  <loot>
+ 	 <item id="2148" countmax="100" chance="30000"/>  
+ 	 <item id="2148" countmax="96" chance="30000"/>  
+ 	 <item id="2152" countmax="10" chance="33333"/>
+ 	 <item id="7590" countmax="4" chance="900"/><!-- GMP -->
+ 	 <item id="8473" countmax="2" chance="895"/><!-- UHP -->
+ 	 <item id="18435" countmax="8" chance="366"/><!-- Prismatic Bolt -->
+ 	 <item id="2144" chance="656"/><!-- Black Pearl -->
+ 	 <item id="2143" chance="566"/><!-- White Pearl -->
+ 	 <item id="2156" chance="566"/><!-- Red Gem -->
+	 <item id="5944" chance="566"/><!-- Soul Orb -->
+ 	 <item id="5880" chance="400"/><!-- Iron Ore -->
+        <item id="18390" chance="466"/><!-- Wand of Defiance -->  
+        <item id="18412" chance="266"/><!-- Glacial Rod -->          
+        <item id="2477" chance="444"/><!-- Knight Legs -->
+        <item id="9980" chance="366"/><!-- Crystal of Power -->
+        <item id="2393" chance="322"/><!-- Giant Sword -->
+        <item id="11227" chance="380"/><!-- Shiny Stone -->
+        <item id="5904" chance="332"/><!-- Magic Sulphur -->
+        <item id="2487" chance="432"/><!-- Crown Armor -->
+        <item id="18453" chance="303"/><!-- Crystal Crossbow -->
+        <item id="18450" chance="303"/><!-- Crystalline Sword -->
+        <item id="7437" chance="250"/><!-- Sapphire Hammer -->
+        <item id="2497" chance="503"/><!-- Crusader Helmet -->
+        <item id="7452" chance="400"/><!-- Spiked Squelcher -->
+</loot>
+</monster>

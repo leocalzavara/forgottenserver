@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Stampor" nameDescription="Stampor" race="blood" experience="780" speed="380" manacost="0">
+	<health now="1200" max="1200"/>
+	<look type="381" corpse="13312"/>
+	<targetchange interval="2000" chance="10"/>
+	<strategy attack="100" defense="0"/>
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="1"/>
+		<flag convinceable="0"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="1"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="50" attack="70"/>
+                <attack name="physical" interval="2000" chance="15" range="7" min="-75" max="-100">
+                <attribute key="shootEffect" value="smallstone"/>
+                </attack>		
+                <attack name="physical" interval="1000" chance="7" min="-150" max="-250">
+                <attribute key="areaEffect" value="poff"/>
+                </attack>
+	</attacks>
+	<defenses armor="25" defense="18">
+		<defense name="healing" interval="2000" chance="11" min="90" max="120">
+			<attribute key="areaEffect" value="blueshimmer"/>
+		</defense>		
+	</defenses>
+	<elements>
+		<element energyPercent="-20"/>
+		<element firePercent="-10"/>
+		<element holyPercent="-50"/>
+		<element deathPercent="-10"/>	
+		<element icePercent="-10"/>
+
+	</elements>
+	<immunities>		
+		<immunity paralyze="1"/>
+		<immunity invisible="1"/>
+	</immunities>    
+	<voices interval="2000" chance="10">
+		<voice sentence="KRRRRRNG" yell="1"/>
+	</voices>
+    <loot>
+    <item id="2148" countmax="100" chance="31250" />
+    <item id="2148" countmax="100" chance="31250" />
+    <item id="2148" countmax="56" chance="31250" />
+    <item id="2152" countmax="2" chance="10000" />	
+    <item id="9970" countmax="2" chance="8167" />
+    <item id="7589" countmax="2" chance="4857" />
+    <item id="7588" countmax="2" chance="4847" />    
+    <item id="2391" chance="1079" />
+    <item id="2476" chance="822" />
+    <item id="7452" chance="289" />  
+    <item id="13299" countmax="2" chance="3809" />
+    <item id="13300" countmax="3" chance="5800" />
+    <item id="13301" chance="3800" />
+</loot>
+</monster>

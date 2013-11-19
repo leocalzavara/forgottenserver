@@ -21,6 +21,7 @@
 	<talkaction words="/m" separator=" " script="place_monster.lua" />
 	<talkaction words="/i" separator=" " script="create_item.lua" />
 	<talkaction words="/s" separator=" " script="place_npc.lua" />
+	<talkaction words="/gotopos" separator=" " script="teleport_to_position.lua" />
 
 	<!-- player talkactions -->
 	<talkaction words="!buypremium" script="buyprem.lua"/>

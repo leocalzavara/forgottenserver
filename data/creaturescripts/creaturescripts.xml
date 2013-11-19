@@ -4,4 +4,12 @@
 	<event type="login" name="FirstItems" script="firstitems.lua"/>
 	<event type="death" name="PlayerDeath" script="playerdeath.lua"/>
 	<event type="extendedopcode" name="ExtendedOpcode" script="extendedopcode.lua"/>
+	
+	<event type="death" name="Versperoth" event="script" value="Versperoth.lua"/>
+	<event type="death" name="wrath" event="script" value="wrath.lua"/>
+	<event type="death" name="fury" event="script" value="fury.lua"/>
+	<event type="death" name="spite" event="script" value="spite.lua"/>
+	<event type="death" name="scorn" event="script" value="scorn.lua"/>
+	
+	<event type="login" name="RentedMounts" event="script" value="RentedMounts.lua"/>
 </creaturescripts>

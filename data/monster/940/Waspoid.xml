@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Waspoid" nameDescription="waspoid" race="blood" experience="830" speed="670" manacost="0">
+  <health now="1100" max="1100"/>
+  <look type="462" corpse="15397"/>
+  <targetchange interval="5000" chance="8"/>
+  <strategy attack="90" defense="10"/>
+  <flags>
+    <flag summonable="0"/>
+    <flag attackable="1"/>
+    <flag hostile="1"/>
+    <flag illusionable="0"/>
+    <flag convinceable="0"/>
+    <flag pushable="0"/>
+    <flag canpushitems="1"/>
+    <flag canpushcreatures="1"/>
+    <flag targetdistance="1"/>
+    <flag staticattack="90"/>
+    <flag runonhealth="0"/>
+  </flags>
+  <attacks>
+		<attack name="melee" interval="2000" skill="30" attack="150" poison="5"/>	
+		<attack name="poison" interval="1000" chance="12" radius="3" target="1" min="-100" max="-160">
+			<attribute key="areaEffect" value="poison"/>
+		</attack>
+  </attacks>
+  <defenses armor="55" defense="55">    
+  </defenses>
+	<elements>				
+		<element physicalPercent="-10"/>
+		<element deathPercent="10"/>
+		<element energyPercent="10"/>
+	</elements>
+  <immunities>
+    <immunity earth="100"/>
+    <immunity lifedrain="0"/>
+    <immunity paralyze="0"/>
+    <immunity invisible="1"/>
+  </immunities> 
+	<voices interval="2500" chance="10">
+		<voice sentence="Peeex!"/>
+	</voices>    
+  <loot>
+ 	<item id="2148" countmax="100" chance="30000"/> 
+ 	<item id="2148" countmax="100" chance="33333"/> 
+	<item id="2152" countmax="2" chance="33333"/> 
+ 	<item id="2149" countmax="4" chance="33333"/>
+        <item id="15486" chance="280"/>             
+        <item id="2144" chance="360"/>
+        <item id="2127" chance="450"/>
+        <item id="2154" chance="350"/>
+        <item id="15492" chance="450"/>
+        <item id="15490" chance="250"/>
+        <item id="15491" chance="332"/>  <!-- SHP -->
+ 	<item id="15483" countmax="2" chance="400"/>    
+ 	<item id="15484" countmax="2" chance="400"/>    
+  	
+</loot>
+</monster>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monster name="Deepling Warrior" nameDescription="deepling warrior" race="blood" experience="3000" speed="400" manacost="0">
+  <health now="3200" max="3200"/>
+  <look type="441" corpse="15175"/>
+  <targetchange interval="5000" chance="8"/>
+	<strategy attack="100" defense="0"/>
+	<flags>
+		<flag summonable="0"/>
+		<flag attackable="1"/>
+		<flag hostile="1"/>
+		<flag illusionable="0"/>
+		<flag convinceable="0"/>
+		<flag pushable="0"/>
+		<flag canpushitems="1"/>
+		<flag canpushcreatures="1"/>
+		<flag targetdistance="1"/>
+		<flag staticattack="90"/>
+		<flag runonhealth="0"/>
+	</flags>
+	<attacks>
+		<attack name="melee" interval="2000" skill="70" attack="90"/>
+		<attack name="speed" interval="4000" chance="20" range="7" speedchange="-400" duration="2500">
+			<attribute key="shootEffect" value="whirlwindaxe"/>
+		</attack>
+		<attack name="physical" interval="1500" chance="13" range="7" target="1" min="-80" max="-190">
+			<attribute key="shootEffect" value="spear"/>	
+		</attack>
+		<attack name="physical" interval="3000" chance="24" range="7" target="1" min="-70" max="-210">
+			<attribute key="shootEffect" value="largerock"/>	
+		</attack>
+	</attacks>
+  <defenses armor="75" defense="75">    
+  </defenses>
+	<elements>
+		<element firePercent="100"/>
+		<element physicalPercent="10"/>
+		<element earthPercent="100"/>
+		<element deathPercent="-20"/>
+		<element energyPercent="-20"/>
+	</elements>
+	<immunities>
+		<immunity outfit="1"/>
+		<immunity drown="1"/>
+		<immunity paralyze="1"/>
+		<immunity invisible="1"/>
+	</immunities>
+	<voices interval="5000" chance="10">
+		<voice sentence="Ljeave this sjacred pljace while you cjan!"/>
+		<voice sentence="Jou wjil ajll djie!"/>
+	</voices>     
+  <loot>
+ 	 <item id="2148" countmax="100" chance="30000"/> 
+	 <item id="2152" countmax="2" chance="33333"/> 
+ 	 <item id="2149" countmax="4" chance="33333"/>
+        <item id="15488" chance="800"/>             
+        <item id="15452" chance="600"/>
+        <item id="15426" chance="500"/>
+        <item id="13870" chance="430"/>
+        <item id="15649" countmax="4" chance="450"/>
+        <item id="7590" chance="7000"/>
+        <item id="7591" chance="7332"/>
+</loot>
+</monster>
