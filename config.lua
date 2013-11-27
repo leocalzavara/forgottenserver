@@ -62,7 +62,7 @@ mysqlPort = 3306
 
 -- Misc.
 allowChangeOutfit = "yes"
-freePremium = "no"
+freePremium = "yes"
 kickIdlePlayerAfterMinutes = 15
 maxMessageBuffer = 4
 noDamageToSameLookfeet = "no"
@@ -71,8 +71,8 @@ noDamageToSameLookfeet = "no"
 -- NOTE: rateExp is not used if you have enabled stages in data/XML/stages.xml
 rateExp = 5
 rateSkill = 20
-rateLoot = 2
-rateMagic = 5
+rateLoot = 3
+rateMagic = 1
 rateSpawn = 1
 
 -- Monsters
