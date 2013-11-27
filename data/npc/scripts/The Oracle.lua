@@ -4,7 +4,7 @@ NpcSystem.parseParameters(npcHandler)
  
 local Topic, vocation, town, destination = {}, {}, {}, {}
 local TOWN_ISLANDOFDESTINY = 20
-local islandOfDestinyEnabled = true
+local islandOfDestinyEnabled = false
  
 function onCreatureAppear(cid)				npcHandler:onCreatureAppear(cid) end
 function onCreatureDisappear(cid) 			npcHandler:onCreatureDisappear(cid) end
@@ -12,11 +12,15 @@ function onCreatureSay(cid, type, msg) 	npcHandler:onCreatureSay(cid, type, msg)
 function onThink() 						npcHandler:onThink() end
  
 function greetCallback(cid)
+	local player = Player:new(cid)
 	if(getPlayerLevel(cid) < 8) then
 		npcHandler:say("CHILD! COME BACK WHEN YOU HAVE GROWN UP!", cid)
 		return false
 	elseif(getPlayerLevel(cid) > 9) then
 		npcHandler:say(getCreatureName(cid) .. ", I CAN'T LET YOU LEAVE - YOU ARE TOO STRONG ALREADY! YOU CAN ONLY LEAVE WITH LEVEL 9 OR LOWER.", cid)
+		return false
+	elseif(player:getFreeCapacity(cid) < 370) then
+		npcHandler:say(getCreatureName(cid) .. ", you need a capacity of 370oz or higher in order to receive new armor, legs, helmet, shield and weapon.", cid)
 		return false
 	else
 		local talkUser = NPCHANDLER_CONVBEHAVIOR == CONVERSATION_DEFAULT and 0 or cid
@@ -34,37 +38,37 @@ function creatureSayCallback(cid, type, msg)
 		Topic[talkUser] = islandOfDestinyEnabled and 4 or 1
 	elseif Topic[talkUser] == 0 then
 		npcHandler:unGreet(cid)
+	elseif msgcontains(msg, "venore") and Topic[talkUser] == 1 then
+		npcHandler:say("IN VENORE! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?", cid)
+		Topic[talkUser] = 2
+		town[talkUser] = 1
+		destination[talkUser] = {x=32957, y=32076, z=7}
+	elseif msgcontains(msg, "thais") and Topic[talkUser] == 1 then
+		npcHandler:say("IN THAIS! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?", cid)
+		Topic[talkUser] = 2
+		town[talkUser] = 2
+		destination[talkUser] = {x=32369, y=32241, z=7}
+	elseif msgcontains(msg, "kazordoon") and Topic[talkUser] == 1 then
+		npcHandler:say("IN KAZORDOON! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?", cid)
+		Topic[talkUser] = 2
+		town[talkUser] = 3
+		destination[talkUser] = {x=32649, y=31925, z=11}
 	elseif msgcontains(msg, "carlin") and Topic[talkUser] == 1 then
 		npcHandler:say("IN CARLIN! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?", cid)
 		Topic[talkUser] = 2
-		town[talkUser] = 2
+		town[talkUser] = 4
 		destination[talkUser] = {x=32360, y=31782, z=7}
 	elseif msgcontains(msg, "ab'dendriel") and Topic[talkUser] == 1 then
 		npcHandler:say("IN AB'DENDRIEL! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?", cid)
 		Topic[talkUser] = 2
-		town[talkUser] = 3
-		destination[talkUser] = {x=32732, y=31634, z=7}
-	elseif msgcontains(msg, "kazordoon") and Topic[talkUser] == 1 then
-		npcHandler:say("IN KAZORDOON! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?", cid)
-		Topic[talkUser] = 2
-		town[talkUser] = 4
-		destination[talkUser] = {x=32649, y=31925, z=11}
-	elseif msgcontains(msg, "thais") and Topic[talkUser] == 1 then
-		npcHandler:say("IN THAIS! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?", cid)
-		Topic[talkUser] = 2
 		town[talkUser] = 5
-		destination[talkUser] = {x=32369, y=32241, z=7}
-	elseif msgcontains(msg, "venore") and Topic[talkUser] == 1 then
-		npcHandler:say("IN VENORE! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?", cid)
-		Topic[talkUser] = 2
-		town[talkUser] = 6
-		destination[talkUser] = {x=32957, y=32076, z=7}
-	elseif msgcontains(msg, "darashia") and Topic[talkUser] == 1 then
+		destination[talkUser] = {x=32732, y=31634, z=7}
+	elseif msgcontains(msg, "port") and msgcontains(msg, "hope") and Topic[talkUser] == 1 then
 		if isPremium(cid) == TRUE then
-			npcHandler:say("IN DARASHIA! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?", cid)
+			npcHandler:say("IN PORT HOPE! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?", cid)
 			Topic[talkUser] = 2
-			town[talkUser] = 7
-			destination[talkUser] = {x=33213, y=32454, z=1}
+			town[talkUser] = 8
+			destination[talkUser] = {x=32595, y=32744, z=6}
 		else
 			npcHandler:say("YOU NEED A PREMIUM ACCOUNT IN ORDER TO GO THERE!", cid)
 			Topic[talkUser] = 1
@@ -73,8 +77,18 @@ function creatureSayCallback(cid, type, msg)
 		if isPremium(cid) == TRUE then
 			npcHandler:say("IN ANKRAHMUN! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?", cid)
 			Topic[talkUser] = 2
-			town[talkUser] = 8
+			town[talkUser] = 9
 			destination[talkUser] = {x=33194, y=32853, z=8}
+		else
+			npcHandler:say("YOU NEED A PREMIUM ACCOUNT IN ORDER TO GO THERE!", cid)
+			Topic[talkUser] = 1
+		end
+	elseif msgcontains(msg, "darashia") and Topic[talkUser] == 1 then
+		if isPremium(cid) == TRUE then
+			npcHandler:say("IN DARASHIA! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?", cid)
+			Topic[talkUser] = 2
+			town[talkUser] = 10
+			destination[talkUser] = {x=33213, y=32454, z=1}
 		else
 			npcHandler:say("YOU NEED A PREMIUM ACCOUNT IN ORDER TO GO THERE!", cid)
 			Topic[talkUser] = 1
@@ -83,18 +97,8 @@ function creatureSayCallback(cid, type, msg)
 		if isPremium(cid) == TRUE then
 			npcHandler:say("IN EDRON! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?", cid)
 			Topic[talkUser] = 2
-			town[talkUser] = 9
+			town[talkUser] = 11
 			destination[talkUser] = {x=33217, y=31814, z=8}
-		else
-			npcHandler:say("YOU NEED A PREMIUM ACCOUNT IN ORDER TO GO THERE!", cid)
-			Topic[talkUser] = 1
-		end
-	elseif msgcontains(msg, "port") and msgcontains(msg, "hope") and Topic[talkUser] == 1 then
-		if isPremium(cid) == TRUE then
-			npcHandler:say("IN PORT HOPE! AND WHAT PROFESSION HAVE YOU CHOSEN: {KNIGHT}, {PALADIN}, {SORCERER}, OR {DRUID}?", cid)
-			Topic[talkUser] = 2
-			town[talkUser] = 10
-			destination[talkUser] = {x=32595, y=32744, z=6}
 		else
 			npcHandler:say("YOU NEED A PREMIUM ACCOUNT IN ORDER TO GO THERE!", cid)
 			Topic[talkUser] = 1
@@ -130,6 +134,7 @@ function creatureSayCallback(cid, type, msg)
 		doSendMagicEffect(getCreaturePosition(cid), CONST_ME_TELEPORT)
 		doTeleportThing(cid, destination[talkUser])
 		doSendMagicEffect(destination[talkUser], CONST_ME_TELEPORT)
+		doPlayerAddVocationItems(cid, vocation[talkUser])
 	elseif Topic[talkUser] == 3 then
 		npcHandler:unGreet(cid)
 	elseif Topic[talkUser] == 4 then
@@ -150,6 +155,26 @@ function creatureSayCallback(cid, type, msg)
 		end
 	end
 	return TRUE
+end
+
+function doPlayerAddVocationItems(cid, voc)
+	local bag = doPlayerAddItem(cid, 1987, 1)
+	doAddContainerItem(bag, 2481, 1) -- Soldier Helmet (32 oz)
+	doAddContainerItem(bag, 2465, 1) -- Brass Armor (80 oz)
+	doAddContainerItem(bag, 2478, 1) -- Brass Legs (38 oz)
+	doAddContainerItem(bag, 2509, 1) -- Steel Shield (69 oz)
+	doAddContainerItem(bag, 2661, 1) -- Scarf (2 oz)
+	if voc == 1 then -- Sorcerer
+		doAddContainerItem(bag, 2190, 1) -- Wand of Vortex (19 oz)
+	elseif voc == 2 then -- Druid
+		doAddContainerItem(bag, 2182, 1) -- Snakebit Rod (19 oz)
+	elseif voc == 3 then -- Paladin
+		doAddContainerItem(bag, 2389, 5) -- Spear (100 oz)
+	elseif voc == 4 then -- Knight
+		doAddContainerItem(bag, 8602, 1) -- Jagged Sword (29 oz)
+		doAddContainerItem(bag, 2439, 1) -- Daramian Mace (68 oz)
+		doAddContainerItem(bag, 8601, 1) -- Steel Axe (41 oz)
+	end
 end
  
 npcHandler:setMessage(MESSAGE_GREET, "|PLAYERNAME|, ARE YOU PREPARED TO FACE YOUR DESTINY?")

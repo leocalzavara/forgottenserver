@@ -17,9 +17,9 @@
 <flag staticattack="90"/>
 <flag runonhealth="366"/>
 </flags>
-<script>
+<!--script>
 <event name="fury"/>
-</script>
+</script-->
 <attacks>
 <attack name="melee" interval="2000" skill="85" attack="145"/>
 <attack name="physical" interval="3000" chance="17" length="8" spread="3" min="-250" max="-450">

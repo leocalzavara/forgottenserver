@@ -1,13 +1,23 @@
-local holes = {468, 481, 483}
+local holes = {468, 481, 483, 7932, 8579}
+local sand = {231, 9059}
+
 function onUse(cid, item, fromPosition, itemEx, toPosition)
 	if isInArray(holes, itemEx.itemid) == TRUE then
-		doTransformItem(itemEx.uid, itemEx.itemid + 1)
+		local newId = itemEx.itemid + 1
+		if(itemEx.itemid == 8579) then
+			newId = 8585
+		end
+		
+		doTransformItem(itemEx.uid, newId)
 		doDecayItem(itemEx.uid)
-	elseif itemEx.itemid == 231 then
+	elseif isInArray(sand, itemEx.itemid) then
 		local rand = math.random(1, 100)
-		if rand == 1 then
+		if(itemEx.actionid  == 100 and rand > 5 and rand <= 20) then
+			doTransformItem(itemEx.uid, 489)
+			doDecayItem(itemEx.uid)
+		elseif rand == 1 then
 			doCreateItem(2159, 1, toPosition)
-		elseif rand > 95 then
+		elseif rand > 90 then
 			doSummonCreature("Scarab", toPosition)
 		end
 		doSendMagicEffect(toPosition, CONST_ME_POFF)

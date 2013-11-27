@@ -1,4 +1,4 @@
-local firstItems = {2050, 2382}
+local firstItems = {2512, 2398} -- Wooden Shield, Mace
 
 function onLogin(cid)
 	if getPlayerLastLoginSaved(cid) == 0 then
@@ -6,8 +6,10 @@ function onLogin(cid)
 			doPlayerAddItem(cid, firstItems[i], 1)
 		end
 		doPlayerAddItem(cid, getPlayerSex(cid) == 0 and 2651 or 2650, 1)
-		local bag = doPlayerAddItem(cid, 1987, 1)
-		doAddContainerItem(bag, 2674, 1)
+		local backpack = doPlayerAddItem(cid, 1988, 1)
+		doAddContainerItem(backpack, 2554, 1) -- Shovel
+		doAddContainerItem(backpack, 2120, 1) -- Rope
+		doAddContainerItem(backpack, 2674, 1) -- Apple
 	end
 	return true
 end
