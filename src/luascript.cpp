@@ -1,5 +1,5 @@
 /**
- * The Forgotten Server - a server application for the MMORPG Tibia
+ * The Forgotten Server - a free and open-source MMORPG server emulator
  * Copyright (C) 2013  Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -62,8 +62,6 @@ ScriptEnvironment::ThingMap ScriptEnvironment::m_globalMap;
 
 ScriptEnvironment::DBResultMap ScriptEnvironment::m_tempResults;
 uint32_t ScriptEnvironment::m_lastResultId = 0;
-
-ScriptEnvironment::StorageMap ScriptEnvironment::m_globalStorageMap;
 
 ScriptEnvironment::TempItemListMap ScriptEnvironment::m_tempItems;
 
@@ -331,23 +329,6 @@ DBResult* ScriptEnvironment::getResultByID(uint32_t id)
 		return nullptr;
 	}
 	return it->second;
-}
-
-void ScriptEnvironment::addGlobalStorageValue(const uint32_t key, const int32_t value)
-{
-	m_globalStorageMap[key] = value;
-}
-
-bool ScriptEnvironment::getGlobalStorageValue(const uint32_t key, int32_t& value)
-{
-	StorageMap::const_iterator it = m_globalStorageMap.find(key);
-	if (it == m_globalStorageMap.end()) {
-		value = 0;
-		return false;
-	}
-
-	value = it->second;
-	return true;
 }
 
 std::string LuaScriptInterface::getErrorDesc(ErrorCode_t code)
@@ -1158,6 +1139,9 @@ std::string LuaScriptInterface::popFieldString(lua_State* L, const std::string& 
 	return popString(L);
 }
 
+#define registerEnum(value) { std::string enumName = #value; registerGlobalVariable(enumName.substr(enumName.find_last_of(':') + 1), value); }
+#define registerEnumIn(tableName, value) { std::string enumName = #value; registerVariable(tableName, enumName.substr(enumName.find_last_of(':') + 1), value); }
+
 void LuaScriptInterface::registerFunctions()
 {
 	//getPlayerFlagValue(cid, flag)
@@ -1175,12 +1159,6 @@ void LuaScriptInterface::registerFunctions()
 	//getInstantSpellWords(name)
 	lua_register(m_luaState, "getInstantSpellWords", LuaScriptInterface::luaGetInstantSpellWords);
 
-	//getGlobalStorageValue(valueid)
-	lua_register(m_luaState, "getGlobalStorageValue", LuaScriptInterface::luaGetGlobalStorageValue);
-
-	//setGlobalStorageValue(valueid, newvalue)
-	lua_register(m_luaState, "setGlobalStorageValue", LuaScriptInterface::luaSetGlobalStorageValue);
-
 	//getTileHouseInfo(pos)
 	//0 no house. != 0 house id
 	lua_register(m_luaState, "getTileHouseInfo", LuaScriptInterface::luaGetTileHouseInfo);
@@ -1190,9 +1168,6 @@ void LuaScriptInterface::registerFunctions()
 
 	//getThingPos(uid)
 	lua_register(m_luaState, "getThingPos", LuaScriptInterface::luaGetThingPos);
-
-	//doPlayerSendDefaultCancel(cid, ReturnValue)
-	lua_register(m_luaState, "doPlayerSendDefaultCancel", LuaScriptInterface::luaDoSendDefaultCancel);
 
 	//doPlayerChangeName(cid, newName)
 	lua_register(m_luaState, "doPlayerChangeName", LuaScriptInterface::luaDoPlayerChangeName);
@@ -1288,9 +1263,6 @@ void LuaScriptInterface::registerFunctions()
 
 	//isMovable(uid)
 	lua_register(m_luaState, "isMovable", LuaScriptInterface::luaIsMoveable);
-
-	//getPlayerGUIDByName(name)
-	lua_register(m_luaState, "getPlayerGUIDByName", LuaScriptInterface::luaGetPlayerGUIDByName);
 
 	//doAddContainerItem(uid, itemid, <optional> count/subtype)
 	lua_register(m_luaState, "doAddContainerItem", LuaScriptInterface::luaDoAddContainerItem);
@@ -1442,9 +1414,6 @@ void LuaScriptInterface::registerFunctions()
 	//cleanMap()
 	lua_register(m_luaState, "cleanMap", LuaScriptInterface::luaCleanMap);
 
-	//getAccountNumberByPlayerName(name)
-	lua_register(m_luaState, "getAccountNumberByPlayerName", LuaScriptInterface::luaGetAccountNumberByPlayerName);
-
 	//debugPrint(text)
 	lua_register(m_luaState, "debugPrint", LuaScriptInterface::luaDebugPrint);
 
@@ -1463,7 +1432,7 @@ void LuaScriptInterface::registerFunctions()
 	//sendGuildChannelMessage(guildId, type, message)
 	lua_register(m_luaState, "sendGuildChannelMessage", LuaScriptInterface::luaSendGuildChannelMessage);
 
-#ifndef __LUAJIT__
+#ifndef LUAJIT_VERSION
 	//bit operations for Lua, based on bitlib project release 24
 	//bit.bnot, bit.band, bit.bor, bit.bxor, bit.lshift, bit.rshift
 	luaL_register(m_luaState, "bit", LuaScriptInterface::luaBitReg);
@@ -1484,9 +1453,98 @@ void LuaScriptInterface::registerFunctions()
 	//registerMethod(className, functionName, function)
 	//registerMetaMethod(className, functionName, function)
 	//registerGlobalMethod(functionName, function)
+	//registerVariable(tableName, name, value)
+	//registerGlobalVariable(name, value)
+	//registerEnum(value)
+	//registerEnumIn(tableName, value)
+
+	// Enums
+	registerEnum(GAME_STATE_STARTUP)
+	registerEnum(GAME_STATE_INIT)
+	registerEnum(GAME_STATE_NORMAL)
+	registerEnum(GAME_STATE_CLOSED)
+	registerEnum(GAME_STATE_SHUTDOWN)
+	registerEnum(GAME_STATE_CLOSING)
+	registerEnum(GAME_STATE_MAINTAIN)
+
+	registerEnum(CLIENTOS_LINUX)
+	registerEnum(CLIENTOS_WINDOWS)
+	registerEnum(CLIENTOS_FLASH)
+	registerEnum(CLIENTOS_OTCLIENT_LINUX)
+	registerEnum(CLIENTOS_OTCLIENT_WINDOWS)
+	registerEnum(CLIENTOS_OTCLIENT_MAC)
 
 	// _G
 	registerGlobalMethod("isType", LuaScriptInterface::luaIsType);
+
+	// configKeys
+	registerTable("configKeys");
+
+	registerEnumIn("configKeys", ConfigManager::ALLOW_CHANGEOUTFIT)
+	registerEnumIn("configKeys", ConfigManager::CANNOT_ATTACK_SAME_LOOKFEET)
+	registerEnumIn("configKeys", ConfigManager::ONE_PLAYER_ON_ACCOUNT)
+	registerEnumIn("configKeys", ConfigManager::AIMBOT_HOTKEY_ENABLED)
+	registerEnumIn("configKeys", ConfigManager::REMOVE_AMMO)
+	registerEnumIn("configKeys", ConfigManager::REMOVE_RUNE_CHARGES)
+	registerEnumIn("configKeys", ConfigManager::EXPERIENCE_FROM_PLAYERS)
+	registerEnumIn("configKeys", ConfigManager::FREE_PREMIUM)
+	registerEnumIn("configKeys", ConfigManager::ADMIN_LOGS_ENABLED)
+	registerEnumIn("configKeys", ConfigManager::REPLACE_KICK_ON_LOGIN)
+	registerEnumIn("configKeys", ConfigManager::ALLOW_CLONES)
+	registerEnumIn("configKeys", ConfigManager::BIND_ONLY_GLOBAL_ADDRESS)
+	registerEnumIn("configKeys", ConfigManager::OPTIMIZE_DATABASE)
+	registerEnumIn("configKeys", ConfigManager::MARKET_PREMIUM)
+	registerEnumIn("configKeys", ConfigManager::STAMINA_SYSTEM)
+
+	registerEnumIn("configKeys", ConfigManager::MAP_NAME)
+	registerEnumIn("configKeys", ConfigManager::HOUSE_RENT_PERIOD)
+	registerEnumIn("configKeys", ConfigManager::SERVER_NAME)
+	registerEnumIn("configKeys", ConfigManager::OWNER_NAME)
+	registerEnumIn("configKeys", ConfigManager::OWNER_EMAIL)
+	registerEnumIn("configKeys", ConfigManager::URL)
+	registerEnumIn("configKeys", ConfigManager::LOCATION)
+	registerEnumIn("configKeys", ConfigManager::IP)
+	registerEnumIn("configKeys", ConfigManager::MOTD)
+	registerEnumIn("configKeys", ConfigManager::WORLD_TYPE)
+	registerEnumIn("configKeys", ConfigManager::MYSQL_HOST)
+	registerEnumIn("configKeys", ConfigManager::MYSQL_USER)
+	registerEnumIn("configKeys", ConfigManager::MYSQL_PASS)
+	registerEnumIn("configKeys", ConfigManager::MYSQL_DB)
+	registerEnumIn("configKeys", ConfigManager::DEFAULT_PRIORITY)
+	registerEnumIn("configKeys", ConfigManager::MAP_AUTHOR)
+
+	registerEnumIn("configKeys", ConfigManager::SQL_PORT)
+	registerEnumIn("configKeys", ConfigManager::MAX_PLAYERS)
+	registerEnumIn("configKeys", ConfigManager::PZ_LOCKED)
+	registerEnumIn("configKeys", ConfigManager::DEFAULT_DESPAWNRANGE)
+	registerEnumIn("configKeys", ConfigManager::DEFAULT_DESPAWNRADIUS)
+	registerEnumIn("configKeys", ConfigManager::RATE_EXPERIENCE)
+	registerEnumIn("configKeys", ConfigManager::RATE_SKILL)
+	registerEnumIn("configKeys", ConfigManager::RATE_LOOT)
+	registerEnumIn("configKeys", ConfigManager::RATE_MAGIC)
+	registerEnumIn("configKeys", ConfigManager::RATE_SPAWN)
+	registerEnumIn("configKeys", ConfigManager::HOUSE_PRICE)
+	registerEnumIn("configKeys", ConfigManager::KILLS_TO_RED)
+	registerEnumIn("configKeys", ConfigManager::KILLS_TO_BLACK)
+	registerEnumIn("configKeys", ConfigManager::MAX_MESSAGEBUFFER)
+	registerEnumIn("configKeys", ConfigManager::ACTIONS_DELAY_INTERVAL)
+	registerEnumIn("configKeys", ConfigManager::EX_ACTIONS_DELAY_INTERVAL)
+	registerEnumIn("configKeys", ConfigManager::KICK_AFTER_MINUTES)
+	registerEnumIn("configKeys", ConfigManager::PROTECTION_LEVEL)
+	registerEnumIn("configKeys", ConfigManager::DEATH_LOSE_PERCENT)
+	registerEnumIn("configKeys", ConfigManager::STATUSQUERY_TIMEOUT)
+	registerEnumIn("configKeys", ConfigManager::FRAG_TIME)
+	registerEnumIn("configKeys", ConfigManager::WHITE_SKULL_TIME)
+	registerEnumIn("configKeys", ConfigManager::ADMIN_PORT)
+	registerEnumIn("configKeys", ConfigManager::GAME_PORT)
+	registerEnumIn("configKeys", ConfigManager::LOGIN_PORT)
+	registerEnumIn("configKeys", ConfigManager::STATUS_PORT)
+	registerEnumIn("configKeys", ConfigManager::STAIRHOP_DELAY)
+	registerEnumIn("configKeys", ConfigManager::MARKET_OFFER_DURATION)
+	registerEnumIn("configKeys", ConfigManager::CHECK_EXPIRED_MARKET_OFFERS_EACH_MINUTES)
+	registerEnumIn("configKeys", ConfigManager::MAX_MARKET_OFFERS_AT_A_TIME_PER_PLAYER)
+	registerEnumIn("configKeys", ConfigManager::EXP_FROM_PLAYERS_LEVEL_RANGE)
+	registerEnumIn("configKeys", ConfigManager::MAX_PACKETS_PER_SECOND)
 
 	// Game
 	registerTable("Game");
@@ -1502,6 +1560,8 @@ void LuaScriptInterface::registerFunctions()
 
 	registerMethod("Game", "getGameState", LuaScriptInterface::luaGameGetGameState);
 	registerMethod("Game", "setGameState", LuaScriptInterface::luaGameSetGameState);
+	
+	registerMethod("Game", "getReturnMessage", LuaScriptInterface::luaGameGetReturnMessage);
 
 	// Position
 	registerClass("Position", "", LuaScriptInterface::luaPositionCreate);
@@ -1726,8 +1786,10 @@ void LuaScriptInterface::registerFunctions()
 	registerMethod("Player", "getGuid", LuaScriptInterface::luaPlayerGetGuid);
 	registerMethod("Player", "getIp", LuaScriptInterface::luaPlayerGetIp);
 	registerMethod("Player", "getAccountId", LuaScriptInterface::luaPlayerGetAccountId);
-	registerMethod("Player", "getAccountType", LuaScriptInterface::luaPlayerGetAccountType);
 	registerMethod("Player", "getLastLoginSaved", LuaScriptInterface::luaPlayerGetLastLoginSaved);
+
+	registerMethod("Player", "getAccountType", LuaScriptInterface::luaPlayerGetAccountType);
+	registerMethod("Player", "setAccountType", LuaScriptInterface::luaPlayerSetAccountType);
 
 	registerMethod("Player", "getFreeCapacity", LuaScriptInterface::luaPlayerGetFreeCapacity);
 	registerMethod("Player", "getDepotItems", LuaScriptInterface::luaPlayerGetDepotItems);
@@ -2087,6 +2149,9 @@ void LuaScriptInterface::registerFunctions()
 	registerMethod("MonsterType", "getChangeTargetSpeed", LuaScriptInterface::luaMonsterTypeGetChangeTargetSpeed);
 }
 
+#undef registerEnum
+#undef registerEnumIn
+
 void LuaScriptInterface::registerClass(const std::string& className, const std::string& baseClass, lua_CFunction newFunction/* = nullptr*/)
 {
 	// className = {}
@@ -2193,6 +2258,24 @@ void LuaScriptInterface::registerGlobalMethod(const std::string& functionName, l
 	// _G[functionName] = func
 	lua_pushcfunction(m_luaState, func);
 	lua_setglobal(m_luaState, functionName.c_str());
+}
+
+void LuaScriptInterface::registerVariable(const std::string& tableName, const std::string& name, lua_Number value)
+{
+	// tableName.name = value
+	lua_getglobal(m_luaState, tableName.c_str());
+	lua_pushnumber(m_luaState, value);
+	lua_setfield(m_luaState, -2, name.c_str());
+
+	// pop tableName
+	lua_pop(m_luaState, 1);
+}
+
+void LuaScriptInterface::registerGlobalVariable(const std::string& name, lua_Number value)
+{
+	// _G[name] = value
+	lua_pushnumber(m_luaState, value);
+	lua_setglobal(m_luaState, name.c_str());
 }
 
 int32_t LuaScriptInterface::luaGetPlayerFlagValue(lua_State* L)
@@ -2334,23 +2417,6 @@ int32_t LuaScriptInterface::luaDoPlayerRemoveItem(lua_State* L)
 		pushBoolean(L, false);
 	}
 
-	return 1;
-}
-
-int32_t LuaScriptInterface::luaDoSendDefaultCancel(lua_State* L)
-{
-	//doPlayerSendDefaultCancel(cid, ReturnValue)
-	ReturnValue ret = (ReturnValue)popNumber(L);
-	uint32_t cid = popNumber(L);
-
-	const Player* player = g_game.getPlayerByID(cid);
-	if (player) {
-		player->sendCancelMessage(ret);
-		pushBoolean(L, true);
-	} else {
-		reportErrorFunc(getErrorDesc(LUA_ERROR_PLAYER_NOT_FOUND));
-		pushBoolean(L, false);
-	}
 	return 1;
 }
 
@@ -4056,31 +4122,6 @@ int32_t LuaScriptInterface::luaSetItemOutfit(lua_State* L)
 	return 1;
 }
 
-int32_t LuaScriptInterface::luaGetGlobalStorageValue(lua_State* L)
-{
-	//getGlobalStorageValue(valueid)
-	uint32_t key = popNumber(L);
-
-	int32_t value;
-	if (ScriptEnvironment::getGlobalStorageValue(key, value)) {
-		lua_pushnumber(L, value);
-	} else {
-		lua_pushnumber(L, -1);
-	}
-	return 1;
-}
-
-int32_t LuaScriptInterface::luaSetGlobalStorageValue(lua_State* L)
-{
-	//setGlobalStorageValue(valueid, newvalue)
-	int32_t value = popNumber<int32_t>(L);
-	uint32_t key = popNumber(L);
-
-	ScriptEnvironment::addGlobalStorageValue(key, value);
-	pushBoolean(L, true);
-	return 1;
-}
-
 int32_t LuaScriptInterface::luaDoPlayerSetGuildLevel(lua_State* L)
 {
 	//doPlayerSetGuildLevel(cid, level)
@@ -4168,48 +4209,6 @@ int32_t LuaScriptInterface::luaIsMoveable(lua_State* L)
 	//isMovable(uid)
 	Thing* thing = getScriptEnv()->getThingByUID(popNumber(L));
 	pushBoolean(L, thing && thing->isPushable());
-	return 1;
-}
-
-int32_t LuaScriptInterface::luaGetAccountNumberByPlayerName(lua_State* L)
-{
-	//getAccountNumberByPlayerName(name)
-	std::string name = popString(L);
-
-	Player* player = g_game.getPlayerByName(name);
-	uint32_t value = 0;
-
-	if (player) {
-		value = player->getAccount();
-	} else {
-		value = IOLoginData::getAccountNumberByName(name);
-	}
-
-	lua_pushnumber(L, value);
-	return 1;
-}
-
-int32_t LuaScriptInterface::luaGetPlayerGUIDByName(lua_State* L)
-{
-	//getPlayerGUIDByName(name)
-	std::string name = popString(L);
-	uint32_t value;
-
-	Player* player = g_game.getPlayerByName(name);
-	if (player) {
-		value = player->getGUID();
-	} else {
-		uint32_t guid;
-		std::string strName(name);
-
-		if (IOLoginData::getGuidByName(guid, strName)) {
-			value = guid;
-		} else {
-			value = 0;
-		}
-	}
-
-	lua_pushnumber(L, value);
 	return 1;
 }
 
@@ -4763,7 +4762,7 @@ std::string LuaScriptInterface::escapeString(const std::string& string)
 	return s;
 }
 
-#ifndef __LUAJIT__
+#ifndef LUAJIT_VERSION
 const luaL_Reg LuaScriptInterface::luaBitReg[] = {
 	//{"cast", LuaScriptInterface::luaBitCast},
 	{"bnot", LuaScriptInterface::luaBitNot},
@@ -5166,6 +5165,14 @@ int32_t LuaScriptInterface::luaGameSetGameState(lua_State* L)
 	GameState_t state = static_cast<GameState_t>(getNumber<int64_t>(L, 1));
 	g_game.setGameState(state);
 	pushBoolean(L, true);
+	return 1;
+}
+
+int32_t LuaScriptInterface::luaGameGetReturnMessage(lua_State* L)
+{
+	// Game.getReturnMessage(value)
+	ReturnValue value = static_cast<ReturnValue>(getNumber<int64_t>(L, 1));
+	pushString(L, getReturnMessage(value));
 	return 1;
 }
 
@@ -7837,6 +7844,18 @@ int32_t LuaScriptInterface::luaPlayerGetAccountId(lua_State* L)
 	return 1;
 }
 
+int32_t LuaScriptInterface::luaPlayerGetLastLoginSaved(lua_State* L)
+{
+	// player:getLastLoginSaved()
+	Player* player = getUserdata<Player>(L, 1);
+	if (player) {
+		pushNumber(L, player->getLastLoginSaved());
+	} else {
+		pushNil(L);
+	}
+	return 1;
+}
+
 int32_t LuaScriptInterface::luaPlayerGetAccountType(lua_State* L)
 {
 	// player:getAccountType()
@@ -7849,12 +7868,15 @@ int32_t LuaScriptInterface::luaPlayerGetAccountType(lua_State* L)
 	return 1;
 }
 
-int32_t LuaScriptInterface::luaPlayerGetLastLoginSaved(lua_State* L)
+int32_t LuaScriptInterface::luaPlayerSetAccountType(lua_State* L)
 {
-	// player:getLastLoginSaved()
+	// player:setAccountType(accountType)
+	AccountType_t accountType = static_cast<AccountType_t>(getNumber<uint32_t>(L, 2));
 	Player* player = getUserdata<Player>(L, 1);
 	if (player) {
-		pushNumber(L, player->getLastLoginSaved());
+		player->accountType = accountType;
+		IOLoginData::setAccountType(player->getAccount(), accountType);
+		pushBoolean(L, true);
 	} else {
 		pushNil(L);
 	}
@@ -8629,7 +8651,7 @@ int32_t LuaScriptInterface::luaPlayerGetMoney(lua_State* L)
 	// player:getMoney()
 	Player* player = getUserdata<Player>(L, 1);
 	if (player) {
-		pushNumber(L, g_game.getMoney(player));
+		pushNumber(L, player->getMoney());
 	} else {
 		pushNil(L);
 	}

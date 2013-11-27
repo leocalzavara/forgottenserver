@@ -30,12 +30,13 @@ replaceKickOnLogin = "yes"
 maxPacketsPerSecond = 25
 
 -- Deaths
--- NOTE: Leave deathLosePercent as -1 if you want to use Tibia's
+-- NOTE: Leave deathLosePercent as -1 if you want to use the default
 -- death penalty formula. For the old formula, set it to 10. For
 -- no skill/experience loss, set it to 0.
 deathLosePercent = -1
 
 -- Houses
+-- NOTE: set housePriceEachSQM to -1 to disable the ingame buy house functionality
 housePriceEachSQM = 1000
 houseRentPeriod = "never"
 
@@ -55,9 +56,9 @@ maxMarketOffersAtATimePerPlayer = 100
 
 -- MySQL
 mysqlHost = "127.0.0.1"
-mysqlUser = "root"
+mysqlUser = "forgottenserver"
 mysqlPass = ""
-mysqlDatabase = "theforgottenserver"
+mysqlDatabase = "forgottenserver"
 mysqlPort = 3306
 
 -- Misc.

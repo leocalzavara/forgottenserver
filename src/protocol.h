@@ -1,5 +1,5 @@
 /**
- * The Forgotten Server - a server application for the MMORPG Tibia
+ * The Forgotten Server - a free and open-source MMORPG server emulator
  * Copyright (C) 2013  Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -17,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef __OTSERV_PROTOCOL_H__
-#define __OTSERV_PROTOCOL_H__
+#ifndef PROTOCOL_H
+#define PROTOCOL_H
 
 class NetworkMessage;
 class OutputMessage;
@@ -30,17 +30,7 @@ class RSA;
 class Protocol
 {
 	public:
-		Protocol(Connection_ptr connection) {
-			m_connection = connection;
-			m_encryptionEnabled = false;
-			m_checksumEnabled = true;
-			m_rawMessages = false;
-			m_key[0] = 0;
-			m_key[1] = 0;
-			m_key[2] = 0;
-			m_key[3] = 0;
-			m_refCount = 0;
-		}
+		Protocol(Connection_ptr connection) : m_connection(connection), m_key(), m_refCount(), m_encryptionEnabled(false), m_checksumEnabled(true), m_rawMessages(false) {}
 
 		// non-copyable
 		Protocol(const Protocol&) = delete;
@@ -59,10 +49,7 @@ class Protocol
 		virtual void onRecvFirstMessage(NetworkMessage& msg) = 0;
 		virtual void onConnect() {}
 
-		Connection_ptr getConnection() {
-			return m_connection;
-		}
-		const Connection_ptr getConnection() const {
+		Connection_ptr getConnection() const {
 			return m_connection;
 		}
 		void setConnection(Connection_ptr connection) {

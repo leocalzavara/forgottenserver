@@ -198,6 +198,34 @@ function getPlayersByAccountNumber(accountNumber)
 	end
 	return result
 end
+function getPlayerGUIDByName(name)
+	local player = Player(name)
+	if player ~= nil then
+		return player:getGuid()
+	end
+
+	local resultId = db.storeQuery("SELECT `id` FROM `players` WHERE `name` = " .. db.escapeString(name))
+	if resultId ~= false then
+		local guid = result.getDataInt(resultId, "id")
+		result.free(resultId)
+		return guid
+	end
+	return 0
+end
+function getAccountNumberByPlayerName(name)
+	local player = Player(name)
+	if player ~= nil then
+		return player:getAccountId()
+	end
+
+	local resultId = db.storeQuery("SELECT `account_id` FROM `players` WHERE `name` = " .. db.escapeString(name))
+	if resultId ~= false then
+		local accountId = result.getDataInt(resultId, "account_id")
+		result.free(resultId)
+		return accountId
+	end
+	return 0
+end
 
 getPlayerAccountBalance = getPlayerBalance
 getIpByName = getIPByPlayerName
@@ -240,6 +268,8 @@ function doAddMapMark(cid, pos, type, description) local p = Player(cid) return 
 function doPlayerSendTextMessage(cid, type, text, ...) local p = Player(cid) return p ~= nil and p:sendTextMessage(type, text, ...) or false end
 function doSendAnimatedText() debugPrint("Deprecated function.") return true end
 function doPlayerAddExp(cid, exp, ...) local p = Player(cid) return p ~= nil and p:addExperience(exp, ...) or false end
+
+doPlayerSendDefaultCancel = doPlayerSendCancel
 
 function getMonsterTargetList(cid)
 	local monster = Monster(cid)
@@ -573,8 +603,9 @@ function getThing(uid)
 end
 
 function getConfigInfo(info)
-	if (type(info) ~= 'string') then return nil end
-
+	if type(info) ~= "string" then
+		return nil
+	end
 	dofile('config.lua')
 	return _G[info]
 end
@@ -591,3 +622,12 @@ function getWorldCreatures(type)
 end
 
 saveData = saveServer
+
+function getGlobalStorageValue(key)
+	return Game.getStorageValue(key) or -1
+end
+
+function setGlobalStorageValue(key, value)
+	Game.setStorageValue(key, value)
+	return true
+end

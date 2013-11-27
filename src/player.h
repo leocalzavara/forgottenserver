@@ -1,5 +1,5 @@
 /**
- * The Forgotten Server - a server application for the MMORPG Tibia
+ * The Forgotten Server - a free and open-source MMORPG server emulator
  * Copyright (C) 2013  Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -17,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef __OTSERV_PLAYER_H__
-#define __OTSERV_PLAYER_H__
+#ifndef PLAYER_H
+#define PLAYER_H
 
 #include "creature.h"
 #include "container.h"
@@ -96,6 +96,9 @@ enum tradestate_t {
 };
 
 struct VIPEntry {
+	VIPEntry(uint32_t guid, const std::string& name, const std::string& description, uint32_t icon, bool notify)
+		: guid(guid), name(name), description(description), icon(icon), notify(notify) {}
+
 	uint32_t guid;
 	std::string name;
 	std::string description;
@@ -124,7 +127,7 @@ typedef std::vector<uint32_t> GuildWarList;
 class Player : public Creature, public Cylinder
 {
 	public:
-#ifdef __ENABLE_SERVER_DIAGNOSTIC__
+#ifdef ENABLE_SERVER_DIAGNOSTIC
 		static uint32_t playerCount;
 #endif
 		Player(ProtocolGame* p);
@@ -548,6 +551,8 @@ class Player : public Creature, public Cylinder
 		virtual RaceType_t getRace() const {
 			return RACE_BLOOD;
 		}
+
+		uint64_t getMoney() const;
 
 		//safe-trade functions
 		void setTradeState(tradestate_t state) {

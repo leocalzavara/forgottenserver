@@ -1,5 +1,5 @@
 /**
- * The Forgotten Server - a server application for the MMORPG Tibia
+ * The Forgotten Server - a free and open-source MMORPG server emulator
  * Copyright (C) 2013  Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -17,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef __OTSERV_COMMANDS_H__
-#define __OTSERV_COMMANDS_H__
+#ifndef COMMANDS_H
+#define COMMANDS_H
 
 #include "enums.h"
 
@@ -36,29 +36,21 @@ class Commands
 		bool loadFromXml();
 		bool reload();
 
-		Command* getCommand(const std::string& cmd);
 		bool exeCommand(Player* player, const std::string& cmd);
 
 	protected:
 		bool loaded;
 
 		//commands
-		void placeSummon(Player* player, const std::string& cmd, const std::string& param);
 		void reloadInfo(Player* player, const std::string& cmd, const std::string& param);
-		void setHouseOwner(Player* player, const std::string& cmd, const std::string& param);
 		void sellHouse(Player* player, const std::string& cmd, const std::string& param);
-		void buyHouse(Player* player, const std::string& cmd, const std::string& param);
-		void newType(Player* player, const std::string& cmd, const std::string& param);
 		void forceRaid(Player* player, const std::string& cmd, const std::string& param);
 		void addSkill(Player* player, const std::string& cmd, const std::string& param);
 		void clean(Player* player, const std::string& cmd, const std::string& param);
 		void serverDiag(Player* player, const std::string& cmd, const std::string& param);
 		void ghost(Player* player, const std::string& cmd, const std::string& param);
 		void multiClientCheck(Player* player, const std::string& cmd, const std::string& param);
-		void newItem(Player* player, const std::string& cmd, const std::string& param);
 		void hide(Player* player, const std::string& cmd, const std::string& param);
-		void addTutor(Player* player, const std::string& cmd, const std::string& param);
-		void removeTutor(Player* player, const std::string& cmd, const std::string& param);
 
 		//table of commands
 		static s_defcommands defined_commands[];

@@ -1,5 +1,5 @@
 /**
- * The Forgotten Server - a server application for the MMORPG Tibia
+ * The Forgotten Server - a free and open-source MMORPG server emulator
  * Copyright (C) 2013  Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -44,7 +44,7 @@
 #include "globalevent.h"
 #include "monster.h"
 #include "scheduler.h"
-#ifdef __ENABLE_SERVER_DIAGNOSTIC__
+#ifdef ENABLE_SERVER_DIAGNOSTIC
 #include "outputmessage.h"
 #include "connection.h"
 #include "admin.h"
@@ -67,23 +67,16 @@ extern GlobalEvents* g_globalEvents;
 
 s_defcommands Commands::defined_commands[] = {
 	//admin commands
-	{"/summon", &Commands::placeSummon},
 	{"/reload", &Commands::reloadInfo},
-	{"/owner", &Commands::setHouseOwner},
-	{"/newtype", &Commands::newType},
-	{"/newitem", &Commands::newItem},
 	{"/hide", &Commands::hide},
 	{"/raid", &Commands::forceRaid},
 	{"/addskill", &Commands::addSkill},
 	{"/ghost", &Commands::ghost},
 	{"/clean", &Commands::clean},
 	{"/mccheck", &Commands::multiClientCheck},
-	{"/addtutor", &Commands::addTutor},
-	{"/removetutor", &Commands::removeTutor},
 	{"/serverdiag", &Commands::serverDiag},
 
 	// player commands - TODO: make them talkactions
-	{"!buyhouse", &Commands::buyHouse},
 	{"!sellhouse", &Commands::sellHouse}
 };
 
@@ -206,15 +199,6 @@ bool Commands::reload()
 	return loadFromXml();
 }
 
-Command* Commands::getCommand(const std::string& cmd)
-{
-	auto it = commandMap.find(cmd);
-	if (it == commandMap.end()) {
-		return nullptr;
-	}
-	return it->second;
-}
-
 bool Commands::exeCommand(Player* player, const std::string& cmd)
 {
 	std::string str_command;
@@ -264,27 +248,6 @@ bool Commands::exeCommand(Player* player, const std::string& cmd)
 		}
 	}
 	return true;
-}
-
-void Commands::placeSummon(Player* player, const std::string& cmd, const std::string& param)
-{
-	Monster* monster = Monster::createMonster(param);
-	if (!monster) {
-		player->sendCancelMessage(RET_NOTPOSSIBLE);
-		g_game.addMagicEffect(player->getPosition(), NM_ME_POFF);
-		return;
-	}
-
-	// Place the monster
-	player->addSummon(monster);
-
-	if (!g_game.placeCreature(monster, player->getPosition())) {
-		player->removeSummon(monster);
-		player->sendCancelMessage(RET_NOTENOUGHROOM);
-		g_game.addMagicEffect(player->getPosition(), NM_ME_POFF);
-	} else {
-		g_game.addMagicEffect(monster->getPosition(), NM_ME_TELEPORT);
-	}
 }
 
 void Commands::reloadInfo(Player* player, const std::string& cmd, const std::string& param)
@@ -344,24 +307,6 @@ void Commands::reloadInfo(Player* player, const std::string& cmd, const std::str
 	}
 }
 
-void Commands::setHouseOwner(Player* player, const std::string& cmd, const std::string& param)
-{
-	if (player->getTile()->hasFlag(TILESTATE_HOUSE)) {
-		HouseTile* houseTile = dynamic_cast<HouseTile*>(player->getTile());
-		if (houseTile) {
-			uint32_t guid;
-			std::string name = param;
-			if (name == "none") {
-				houseTile->getHouse()->setOwner(0);
-			} else if (IOLoginData::getGuidByName(guid, name)) {
-				houseTile->getHouse()->setOwner(guid);
-			} else {
-				player->sendTextMessage(MSG_STATUS_CONSOLE_BLUE, "Player not found.");
-			}
-		}
-	}
-}
-
 void Commands::sellHouse(Player* player, const std::string& cmd, const std::string& param)
 {
 	Player* tradePartner = g_game.getPlayerByName(param);
@@ -415,101 +360,10 @@ void Commands::sellHouse(Player* player, const std::string& cmd, const std::stri
 	}
 }
 
-void Commands::buyHouse(Player* player, const std::string& cmd, const std::string& param)
-{
-	if (!player->isPremium()) {
-		player->sendCancelMessage(RET_YOUNEEDPREMIUMACCOUNT);
-		return;
-	}
-
-	Position pos = player->getPosition();
-	pos = getNextPosition(player->direction, pos);
-
-	Tile* tile = g_game.getTile(pos);
-	if (!tile) {
-		player->sendCancel("You have to be looking at the door of the house you would like to buy.");
-		return;
-	}
-
-	HouseTile* houseTile = dynamic_cast<HouseTile*>(tile);
-	if (!houseTile) {
-		player->sendCancel("You have to be looking at the door of the house you would like to buy.");
-		return;
-	}
-
-	House* house = houseTile->getHouse();
-	if (!house || !house->getDoorByPosition(pos)) {
-		player->sendCancel("You have to be looking at the door of the house you would like to buy.");
-		return;
-	}
-
-	if (house->getOwner()) {
-		player->sendCancel("This house alreadly has an owner.");
-		return;
-	}
-
-	for (const auto& it : Houses::getInstance().getHouses()) {
-		if (it.second->getOwner() == player->guid) {
-			player->sendCancel("You are already the owner of a house.");
-			return;
-		}
-	}
-
-	uint64_t price = house->getTiles().size() * g_config.getNumber(ConfigManager::HOUSE_PRICE);
-	if (!g_game.removeMoney(player, price)) {
-		player->sendCancel("You do not have enough money.");
-		return;
-	}
-
-	house->setOwner(player->guid);
-	player->sendTextMessage(MSG_INFO_DESCR, "You have successfully bought this house, be sure to have the money for the rent in the bank.");
-}
-
-void Commands::newType(Player* player, const std::string& cmd, const std::string& param)
-{
-	int32_t lookType = atoi(param.c_str());
-
-	if (lookType >= 0 && lookType != 1 && lookType != 135 && lookType != 411 && lookType != 415 && lookType != 424 && (lookType <= 160 || lookType >= 192) && lookType != 439 && lookType != 440 && lookType != 468 && lookType != 469 && (lookType < 474 || lookType > 485) && lookType != 518 && lookType != 519 && lookType != 520 && lookType != 524 && lookType != 525 && lookType != 536 && lookType != 543 && lookType != 549 && lookType <= 575) {
-		Outfit_t newOutfit = player->getDefaultOutfit();
-		newOutfit.lookType = lookType;
-		g_game.internalCreatureChangeOutfit(player, newOutfit);
-	} else {
-		player->sendTextMessage(MSG_STATUS_SMALL, "This looktype does not exist.");
-	}
-}
-
 void Commands::hide(Player* player, const std::string& cmd, const std::string& param)
 {
 	player->setHiddenHealth(!player->isHealthHidden());
 	g_game.addCreatureHealth(player);
-}
-
-void Commands::newItem(Player* player, const std::string& cmd, const std::string& param)
-{
-	int32_t itemId = atoi(param.c_str());
-
-	for (uint32_t i = 0; i < param.length(); i++) {
-		if (!isNumber(param[i])) {
-			itemId = Item::items.getItemIdByName(param);
-			break;
-		}
-	}
-
-	if (itemId <= 0) {
-		return;
-	}
-
-	const ItemType& it = Item::items[itemId];
-	if (it.id == 0) {
-		return;
-	}
-
-	Outfit_t outfit;
-	outfit.lookTypeEx = itemId;
-
-	ConditionOutfit* outfitCondition = new ConditionOutfit(CONDITIONID_COMBAT, CONDITION_OUTFIT, -1);
-	outfitCondition->addOutfit(outfit);
-	player->addCondition(outfitCondition);
 }
 
 void Commands::forceRaid(Player* player, const std::string& cmd, const std::string& param)
@@ -585,7 +439,7 @@ void Commands::clean(Player* player, const std::string& cmd, const std::string& 
 
 void Commands::serverDiag(Player* player, const std::string& cmd, const std::string& param)
 {
-#ifdef __ENABLE_SERVER_DIAGNOSTIC__
+#ifdef ENABLE_SERVER_DIAGNOSTIC
 	std::ostringstream text;
 	text << "Server diagonostic:\n";
 	text << "World:\n";
@@ -615,7 +469,7 @@ void Commands::serverDiag(Player* player, const std::string& cmd, const std::str
 
 	player->sendTextMessage(MSG_STATUS_CONSOLE_BLUE, text.str().c_str());
 #else
-	player->sendTextMessage(MSG_STATUS_CONSOLE_BLUE, "This command requires the server to be compiled with the __ENABLE_SERVER_DIAGNOSTIC__ flag.");
+	player->sendTextMessage(MSG_STATUS_CONSOLE_BLUE, "This command requires the server to be compiled with the ENABLE_SERVER_DIAGNOSTIC flag.");
 #endif
 }
 
@@ -693,53 +547,5 @@ void Commands::multiClientCheck(Player* player, const std::string& cmd, const st
 
 		ss << '.';
 		player->sendTextMessage(MSG_STATUS_CONSOLE_BLUE, ss.str());
-	}
-}
-
-void Commands::addTutor(Player* player, const std::string& cmd, const std::string& param)
-{
-	uint32_t accountId = 0;
-	std::string characterName = param;
-
-	Player* targetPlayer = g_game.getPlayerByName(characterName);
-	if (targetPlayer) {
-		targetPlayer->accountType = ACCOUNT_TYPE_TUTOR;
-		accountId = targetPlayer->getAccount();
-		characterName = targetPlayer->getName();
-	} else {
-		accountId = IOLoginData::getAccountNumberByName(characterName);
-		uint32_t guid;
-		IOLoginData::getGuidByName(guid, characterName);
-	}
-
-	if (accountId != 0 && IOLoginData::getAccountType(accountId) == ACCOUNT_TYPE_NORMAL) {
-		IOLoginData::setAccountType(accountId, ACCOUNT_TYPE_TUTOR);
-		player->sendTextMessage(MSG_INFO_DESCR, characterName + (" is now a tutor."));
-	} else {
-		player->sendTextMessage(MSG_INFO_DESCR, "A character with that name does not exist, or is already a tutor.");
-	}
-}
-
-void Commands::removeTutor(Player* player, const std::string& cmd, const std::string& param)
-{
-	uint32_t accountId = 0;
-	std::string characterName = param;
-
-	Player* targetPlayer = g_game.getPlayerByName(characterName);
-	if (targetPlayer) {
-		targetPlayer->accountType = ACCOUNT_TYPE_NORMAL;
-		accountId = targetPlayer->getAccount();
-		characterName = targetPlayer->getName();
-	} else {
-		accountId = IOLoginData::getAccountNumberByName(characterName);
-		uint32_t guid;
-		IOLoginData::getGuidByName(guid, characterName);
-	}
-
-	if (accountId != 0 && IOLoginData::getAccountType(accountId) == ACCOUNT_TYPE_TUTOR) {
-		IOLoginData::setAccountType(accountId, ACCOUNT_TYPE_NORMAL);
-		player->sendTextMessage(MSG_INFO_DESCR, characterName + (" is no longer a tutor."));
-	} else {
-		player->sendTextMessage(MSG_INFO_DESCR, "A character with that name does not exist, or is not a tutor.");
 	}
 }

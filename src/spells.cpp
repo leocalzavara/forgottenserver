@@ -1,5 +1,5 @@
 /**
- * The Forgotten Server - a server application for the MMORPG Tibia
+ * The Forgotten Server - a free and open-source MMORPG server emulator
  * Copyright (C) 2013  Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -1558,7 +1558,7 @@ bool InstantSpell::SummonMonster(const InstantSpell* spell, Creature* creature, 
 		}
 	}
 
-	ReturnValue ret = RET_NOERROR;
+	ReturnValue ret;
 	Monster* monster = Monster::createMonster(param);
 	if (monster) {
 		// Place the monster
@@ -1567,6 +1567,8 @@ bool InstantSpell::SummonMonster(const InstantSpell* spell, Creature* creature, 
 		if (!g_game.placeCreature(monster, creature->getPosition(), true)) {
 			creature->removeSummon(monster);
 			ret = RET_NOTENOUGHROOM;
+		} else {
+			ret = RET_NOERROR;
 		}
 	} else {
 		ret = RET_NOTPOSSIBLE;
