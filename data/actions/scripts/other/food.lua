@@ -66,10 +66,11 @@ local food =
 }
 function onUse(cid, item, frompos, item2, topos)
 	if(food[item.itemid] ~= nil) then
-		if (getPlayerFood(cid) + food[item.itemid][1]) >= 400 then
+		local foodRegenerationTime = food[item.itemid][1] * 12; -- 12 = original tibia
+		if (getPlayerFood(cid) + foodRegenerationTime) >= 1200 then -- 20 minutes
 			doPlayerSendCancel(cid, "You are full.")
 		else
-			doPlayerFeed(cid, food[item.itemid][1] * 4)
+			doPlayerFeed(cid, foodRegenerationTime)
 			doCreatureSay(cid, food[item.itemid][2], TALKTYPE_ORANGE_1)
 			doRemoveItem(item.uid, 1)
 		end
