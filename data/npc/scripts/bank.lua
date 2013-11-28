@@ -121,6 +121,15 @@ function creatureSayCallback(cid, type, msg)
 			selfSay("Would you really like to deposit " .. count[cid] .. " gold?", cid)
 			talkState[cid] = 2
 		end
+	elseif msgcontains(msg, 'deposit %d') then
+		count[cid] = getCount(msg)
+		if not isValidMoney(count[cid]) or count[cid] == 0 then
+			selfSay("Sorry, but you can't deposit that much.", cid)
+			talkState[cid] = 0
+		else
+			selfSay("Would you really like to deposit " .. count[cid] .. " gold?", cid)
+			talkState[cid] = 2
+		end
 	elseif msgcontains(msg, 'deposit') then
 		selfSay("Please tell me how much gold it is you would like to deposit.", cid)
 		talkState[cid] = 1
@@ -145,6 +154,15 @@ function creatureSayCallback(cid, type, msg)
 		end
 		talkState[cid] = 0
 ---------------------------- withdraw --------------------
+	elseif msgcontains(msg, 'withdraw %d') then
+		count[cid] = getCount(msg)
+		if isValidMoney(count[cid]) then
+			selfSay("Are you sure you wish to withdraw " .. count[cid] .. " gold from your bank account?", cid)
+			talkState[cid] = 7
+		else
+			selfSay("Is isn\'t valid amount of gold to withdraw.", cid)
+			talkState[cid] = 0
+		end
 	elseif msgcontains(msg, 'withdraw') then
 		selfSay("Please tell me how much gold you would like to withdraw.", cid)
 		talkState[cid] = 6

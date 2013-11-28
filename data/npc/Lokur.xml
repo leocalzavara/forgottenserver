@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<npc name="Lokur" script="Lokur.lua" walkinterval="2000" floorchange="0">
+<!-- Kazordoon Bank and Post Office -->
+<npc name="Lokur" script="bank.lua" walkinterval="2000" floorchange="0">
 <health now="100" max="100"/>
 <look type="160" head="57" body="79" legs="98" feet="95" addons="0"/>
 <voices>
@@ -10,8 +11,13 @@
 <parameters>
 		<parameter key="module_shop" value="1" />
 		<parameter key="shop_buyable" value="label,2599,1;parcel,2595,15;letter,2597,8;" />
-        <parameter key="message_greet" value="How may I help you |PLAYERNAME|? Ask me for a {trade} if you want to buy something. I can also explain the {mail} system, sell {tickets} for the ore wagon service or give you access to your {bank} account."/>
-        <parameter key="message_farewell" value="Come back if you need my services, |PLAYERNAME|."/>
+		
+		<parameter key="module_keywords" value="1" />
+		<parameter key="keywords" value="tickets" />
+		<parameter key="keyword_reply1" value="Sorry, I'm not selling tickets for the ore wagon service at the moment." />
+		
+		<parameter key="message_greet" value="How may I help you |PLAYERNAME|? Ask me for a {trade} if you want to buy something. I can also explain the {mail} system, sell {tickets} for the ore wagon service or give you access to your {bank} account."/>
+		<parameter key="message_farewell" value="Come back if you need my services, |PLAYERNAME|."/>
 		<parameter key="message_walkaway" value="Come back if you need my services, |PLAYERNAME|." />
 		<parameter key="message_sendtrade" value="Here. Don't forget that you need to buy a label too if you want to send a parcel. Always write the name of the {receiver} in the first line and the name of the {city} in the second line." />
     </parameters>
